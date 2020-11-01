@@ -26,3 +26,13 @@
         Path   = "/tmp/log/gf-app/sql"
         Level  = "all"
         Stdout = true
+
+
+[compiler]
+    name     = "learn-golang"
+    version  = "1.0.0"
+    arch     = "amd64"
+    system   = "linux,windows,darwin"
+    output   = ""
+    path     = "./bin"
+    extra    = ""
