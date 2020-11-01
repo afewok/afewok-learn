@@ -1,0 +1,206 @@
+buildscript {
+    ext {
+        //profile
+        if (project.hasProperty("projectEnv")) {
+            projectEnv = project["projectEnv"]
+        } else {
+            projectEnv = "dev"
+        }
+        println "project environment:" + projectEnv
+        separator = File.separator
+        rootProjectPath = project.getRootDir().getPath() + separator;
+    }
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+	id 'org.springframework.boot' version '2.3.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+}
+
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "io.spring.dependency-management"
+
+group = 'com.afewok'
+version = '0.0.1-SNAPSHOT'
+description project.name
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+/*解决设置版本不起作用问题*/
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_11// 设置 JDK 版本
+    targetCompatibility = JavaVersion.VERSION_11
+}
+[compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+
+    all*.exclude module: "fastjson"
+//    all*.exclude module: "spring-boot-starter-json"
+    all*.exclude module: "spring-boot-starter-logging"
+    all*.exclude module: "spring-boot-starter-tomcat"
+    all*.exclude module: "tomcat-jdbc"
+    all*.exclude group: "commons-logging", module: "commons-logging"
+    all*.exclude group: "log4j", module: "log4j"
+    all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
+    all*.exclude group: "org.slf4j", module: "slf4j-log4j12"
+    all*.exclude group: "org.apache.logging.log4j", module: "log4j-jcl"
+    all*.exclude group: "org.apache.logging.log4j", module: "log4j-to-slf4j"
+    all*.exclude group: "org.slf4j", module: "slf4j-jcl"
+    all*.exclude group: "ch.qos.logback", module: "logback-core"
+    all*.exclude group: "ch.qos.logback", module: "logback-classic"
+    all*.exclude group: "org.codehaus.jackson"
+    all*.exclude group: "com.vaadin.external.google", module: "android-json"
+    all*.exclude group: "com.google.guava", module: "listenablefuture"
+    all*.exclude group: "junit"
+    all*.exclude group: "org.junit.vintage"
+    all*.exclude group: "org.junit.jupiter"
+    all*.exclude group: "org.junit.platform"
+    all*.exclude group: "org.mockito"
+//    all*.exclude group: "org.glassfish"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly(
+            "org.projectlombok:lombok"
+    )
+    annotationProcessor(
+            "org.projectlombok:lombok",
+            "org.springframework.boot:spring-boot-configuration-processor",
+    )
+
+    implementation(
+			"org.springframework.boot:spring-boot-starter-web",
+//            "org.springframework.boot:spring-boot-starter-webflux",
+            "org.springframework.boot:spring-boot-starter-undertow",
+
+            // "org.sitemesh:sitemesh:3.0.1",
+            // "org.springframework.boot:spring-boot-starter-freemarker",
+
+            //日志方案选择slf4j与log4j2集成
+            "com.lmax:disruptor:3.4.2",
+            "org.slf4j:slf4j-api:1.7.28",
+            "org.slf4j:jcl-over-slf4j:1.7.28",
+            "org.slf4j:jul-to-slf4j:1.7.28",
+            "org.apache.logging.log4j:log4j-web:2.12.1",
+            "org.apache.logging.log4j:log4j-1.2-api:2.12.1",
+            "org.springframework.boot:spring-boot-starter-log4j2",
+
+            "org.springframework.boot:spring-boot-starter-json",
+            "org.springframework.boot:spring-boot-starter-aop",
+            // "org.springframework.boot:spring-boot-starter-security",
+
+            "com.google.guava:guava:28.1-jre",
+
+            //commons系列
+            "commons-codec:commons-codec",
+            "commons-io:commons-io:2.6",
+
+            //apache-Commons系列
+            "org.apache.commons:commons-lang3",
+            "org.apache.commons:commons-collections4:4.4",
+
+
+            //mysql驱动
+			// "mysql:mysql-connector-java:8.0.18",
+			// "org.springframework.boot:spring-boot-starter-jdbc",
+//            "org.springframework.data:spring-data-commons",
+            //mysql数据源
+			// "com.zaxxer:HikariCP:3.4.1",
+            //mybatis及对接Spring
+			// "org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1",
+            //mybatis 分页插件
+			// "com.github.pagehelper:pagehelper:5.1.10",
+    )
+
+    developmentOnly(
+            "org.springframework.boot:spring-boot-devtools",
+    )
+
+    testCompileOnly(
+            "org.projectlombok:lombok"
+    )
+    testAnnotationProcessor(
+            "org.projectlombok:lombok",
+    )
+    testImplementation(
+            "org.testng:testng:7.0.0",
+            "org.springframework.boot:spring-boot-starter-test",
+            // "io.projectreactor:reactor-test",
+            // "org.springframework.security:spring-security-test",
+    )
+}
+
+test {
+    useTestNG()
+}
+
+sourceSets {
+    main {
+        java {//指定java代码目录
+            srcDir "${rootProjectPath}src${separator}main${separator}java"
+            exclude "resources${separator}**"
+        }
+        resources {//指定资源目录
+            srcDir "${rootProjectPath}src${separator}main${separator}resources${separator}base"
+            srcDir "${rootProjectPath}src${separator}main${separator}resources${separator}${projectEnv}"
+        }
+    }
+    test {
+        java {//指定java代码目录
+            srcDir "${rootProjectPath}src${separator}test${separator}java"
+        }
+        resources {//指定资源目录
+            srcDir "${rootProjectPath}src${separator}test${separator}resources"
+        }
+    }
+}
+
+//增量编译
+tasks.withType(JavaCompile) {
+    options.incremental = true
+}
+
+//是否自动下载依赖源码和javadoc
+idea {
+    module {
+        downloadJavadoc = false
+        downloadSources = false
+
+        inheritOutputDirs = false
+//        outputDir = file("$buildDir/classes/java/main/")
+//        testOutputDir = file("$buildDir/classes/java/test/")
+    }
+}
+
+bootJar {
+    baseName = project.rootProject.name
+    version = ""//打包文件名不添加版本号
+    manifest {
+        attributes "Manifest-Version": project.version,
+                "Built-By": System.getProperty("user.name"),
+                "Built-Date": new Date().format("yyyy-MM-dd HH:mm:ss SSS"),
+                "description": project.description,
+                "Target-JDK": project.targetCompatibility,
+                "Built-Gradle": gradle.gradleVersion,
+                "Built-JDK": System.getProperty("java.version")
+    }
+}

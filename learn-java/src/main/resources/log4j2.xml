@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="consolePrint" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="%d{DEFAULT} [%t] %-5p (%C{1}:%L) - %m%n" charset="UTF-8"/>
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- Root Logger -->
+        <AsyncRoot level="INFO" includeLocation="true">
+            <AppenderRef ref="consolePrint"/>
+        </AsyncRoot>
+    </Loggers>
+</Configuration>
