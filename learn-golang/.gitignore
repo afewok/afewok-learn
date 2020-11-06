@@ -19,6 +19,7 @@ dist/
 *.dylib
 /main
 *.test
+__debug_*
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
