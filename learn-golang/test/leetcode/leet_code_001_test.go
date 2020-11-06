@@ -1,4 +1,4 @@
-package leet_code_001_test
+package testing
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-package golang_start_test
+package testing
 
 import (
 	"fmt"
