@@ -46,3 +46,33 @@ func Test_command_line(t *testing.T) {
 	fmt.Println("go bug：bug提交程序")
 	fmt.Println("go fix：修复程序")
 }
+
+func Test_go_run(t *testing.T) {
+	fmt.Println("go run -a：强制重新编译所有相关的Go语言源代码包")
+	fmt.Println("go run -n：检查执行命令过程中实际会用到的命令，不会执行这些编译命令")
+	fmt.Println("go run -p：构建或测试时指定并行运行的程序数量，默认是CPU数")
+	fmt.Println("go run -race：检查数据竞争问题，并发编程会用到")
+	fmt.Println("go run -v：打印被编译的包")
+	fmt.Println("go run -work：指定编译缓存工作目录")
+	fmt.Println("go run -x：与-n 类似，但会执行这些编译命令")
+}
+
+func Test_go_get(t *testing.T) {
+	fmt.Println("go get -d：只执行下载动作，不执行安装动作")
+	fmt.Println("go get -f：不检查已下载代码包的导入路径，需要与-u选项配合使用")
+	fmt.Println("go get -fix：下载代码包后先执行fix动作（修复代码兼容问题），然后再进行编译和安装")
+	fmt.Println("go get -insecure：允许get命令使用不安全的HTTP协议下载代码包")
+	fmt.Println("go get -t：让get命令同时下载安装指定的代码包的测试源码文件中的依赖代码包")
+	fmt.Println("go get -u：更新已有代码包与依赖包")
+	fmt.Println("go get -v：打印要下载安装的代码包名称")
+}
+
+func Test_go_gofmt(t *testing.T) {
+	fmt.Println("gofmt -l：显示需要格式化的文件")
+	fmt.Println("gofmt -w：不将格式化结果打印到标准输出，而是直接保存到文件中")
+	fmt.Println("gofmt -r：添加形如“{原始内容} -> {替换内容} 的重写规则，方便批量替换”")
+	fmt.Println("gofmt -s：简化文件中的代码")
+	fmt.Println("gofmt -d：显示格式化前后的不同（不写入文件），默认为false")
+	fmt.Println("gofmt -e：打印所有的语法错误。默认打印每行的前10个错误")
+	fmt.Println("gofmt -cpuprofile：支持调试模式，将相应的cpuprofile写入指定的文件")
+}
