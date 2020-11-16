@@ -27,13 +27,23 @@ func Test_element_keyword(t *testing.T) {
 
 func Test_element_other(t *testing.T) {
 	fmt.Println("_ ：空标识符")
-	fmt.Println(":= ：")
+	fmt.Println(":= ：一种简写，表示函数内部变量声明并赋值")
+	fmt.Println(" ++ 和 -- 是语句，不是表达式，没有运算符优先级之说")
 }
 
 func Test_const(t *testing.T) {
 	fmt.Println("常量：const {变量名} type = {赋值}")
-
+	fmt.Println("显示定义：const h string = \"hello\"")
+	fmt.Println("隐示定义：const w = \"world\"")
+	fmt.Println("反斜杠\\，可以在定义常量的表达式中，作为跨行链接符，与shell命令一样")
+	fmt.Println("常量还可以用作枚举，使用iota关键词实现枚举")
 }
+
+const (
+	Connected    = 0
+	Disconnected = 1
+	Unknown      = 2
+)
 
 func Test_var(t *testing.T) {
 	fmt.Println("变量：var {变量名} type = {赋值}")
