@@ -25,6 +25,10 @@ func Test_element_keyword(t *testing.T) {
 	fmt.Println("流程控制：if、continue、for、return、go、case、goto、switch、select、else、break、default、defer、fallthrough、range")
 }
 
+func Test_element_literal(t *testing.T) {
+	fmt.Println("Struct(结构体)、Array(数组)、Slice(切面)、Map(字典)")
+}
+
 func Test_element_other(t *testing.T) {
 	fmt.Println("_ ：空标识符")
 	fmt.Println(":= ：一种简写，表示函数内部变量声明并赋值")
@@ -36,14 +40,35 @@ func Test_const(t *testing.T) {
 	fmt.Println("显示定义：const h string = \"hello\"")
 	fmt.Println("隐示定义：const w = \"world\"")
 	fmt.Println("反斜杠\\，可以在定义常量的表达式中，作为跨行链接符，与shell命令一样")
-	fmt.Println("常量还可以用作枚举，使用iota关键词实现枚举")
-}
+	fmt.Println("整体数字后缀U（unsigned）、L(long)")
+	fmt.Println("转义字符 \\n(新行)\\r(回车)")
+	fmt.Println("常量还可以用作枚举，使用iota关键词实现枚举，第一个常量被默认设置为0，后续的常量默认设置为它上面那个常量的值，iota则递增，所以可是实现枚举")
+	const Pi = 3.1415926
+	const 人数, 费用, 班级 = 40, 200.01, "一班"
+	const (
+		Monday, Tuesday, Wednesday = 1, 2, 3
+		Thursday, Friday, Saturday = 4, 5, 6
+	)
+	const (
+		Connected    = 0
+		Disconnected = 1
+		Unknown      = 2
+	)
 
-const (
-	Connected    = 0
-	Disconnected = 1
-	Unknown      = 2
-)
+	const (
+		a       = iota             //a==0
+		b                          //b==1,隐示使用iota关键词，实际等同于b==iota
+		c                          //c==2,隐示等同于c=iota
+		d, e, f = iota, iota, iota //d==3,e==3,f==3同一行值相同，此处不能只写一个iota
+		g       = iota             //g==4
+		h       = "h"              //h=="h",单独赋值，iota依旧递增为5
+		i                          //i=="h",默认使用上面的赋值，iota依旧递增为6
+		j       = iota             //j==7
+		k       = iota + 50        //k==7+1+50,iota依旧递增为8,并+50
+	)
+	const z = iota //每个单独定义的const常量中，iota都会重置，此时iota==0
+	fmt.Println(a, b, c, d, e, f, g, h, i, j, k, z)
+}
 
 func Test_var(t *testing.T) {
 	fmt.Println("变量：var {变量名} type = {赋值}")
