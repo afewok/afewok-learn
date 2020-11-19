@@ -97,7 +97,7 @@ public class LeetCode092 {
         }
         head = pre.next;
         for (int i = m; i < n; i++) {
-            //P         H -> T -> S
+            //P ->      H -> T -> S
             //1 -> 3 -> 2 -> 4 -> 5
             temp =head.next;
             head.next=temp.next;
