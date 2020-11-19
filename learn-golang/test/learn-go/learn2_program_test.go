@@ -19,6 +19,10 @@ func Test_element_identifier(t *testing.T) {
 	fmt.Println("数据类型：bool、byte、int、int8、int16、int32、int64、uint、uint8、uint16、uint32、uint64、float32、float64、uintptr、string、rune、error、complex64、complex128")
 	fmt.Println("内建函数名：append、cap、close、complex, copy、delete、imag、len、make、new、panic、print、println、real、recover")
 	fmt.Println("其它标识符：iota、nil、_")
+
+	fmt.Println("byte // uint8 的别名")
+	fmt.Println("rune // int32 的别名")
+	fmt.Println("uintptr:用于指针运算，GC 不把 uintptr 当指针，uintptr 无法持有对象。uintptr 类型的目标会被回收。")
 }
 
 func Test_element_keyword(t *testing.T) {
@@ -86,6 +90,7 @@ func Test_var(t *testing.T) {
 		f    bool
 		g    string
 	)
+	var x int
 
 	var (
 		HOME   = os.Getenv("HOME")
@@ -95,7 +100,7 @@ func Test_var(t *testing.T) {
 
 	num, _ := math.Modf(123.465)
 
-	fmt.Println(a, b, c, d, e, f, g)
+	fmt.Println(a, b, c, d, e, f, g, x)
 	fmt.Println(HOME, USER, GOROOT)
 	fmt.Println(Pi, Pi*Pi)
 	fmt.Println(num)
