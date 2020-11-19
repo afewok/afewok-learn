@@ -1,4 +1,4 @@
-package testing
+package leetcode
 
 import (
 	"fmt"
@@ -26,6 +26,9 @@ func Test_leet_code_001(t *testing.T) {
 
 	result2 := twoSum2(num, target)
 	fmt.Printf("%v", result2)
+
+	result3 := twoSum3(num, target)
+	fmt.Printf("%v", result3)
 }
 
 func twoSum1(nums []int, target int) []int {
@@ -43,11 +46,23 @@ func twoSum1(nums []int, target int) []int {
 
 func twoSum2(nums []int, target int) []int {
 	var maps map[int]int = make(map[int]int, len(nums))
-	for i := 0; i < len(nums); i++ {
-		if value, ok := maps[nums[i]]; ok {
+	for i, v := range nums {
+		if value, ok := maps[v]; ok {
 			return []int{value, i}
 		}
-		maps[target-nums[i]] = i
+		maps[target-v] = i
 	}
 	return nil
+}
+
+func twoSum3(nums []int, target int) []int {
+	m := map[int]int{}
+	for i, v := range nums {
+		find := target - v
+		if _, e := m[find]; e {
+			return []int{m[find], i}
+		}
+		m[v] = i
+	}
+	return []int{}
 }

@@ -14,6 +14,8 @@ import org.testng.annotations.Test;
  * 示例:
  * 输入: 1->2->3->4->5->NULL, m = 2, n = 4
  * 输出: 1->4->3->2->5->NULL
+ *
+ * 思路：递归、虚拟头结点(迭代链接反转)
  */
 public class LeetCode092 {
 
@@ -28,7 +30,7 @@ public class LeetCode092 {
         int m = 2, n = 4;
         ListNode head1 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null)))));
         print(head1);
-        head1 = reverseBetween2(head1, m, n);
+        head1 = reverseBetween1(head1, m, n);
         print(head1);
 
         ListNode head2 = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, null)))));
@@ -87,20 +89,20 @@ public class LeetCode092 {
 
 
     public ListNode reverseBetween2(ListNode head, int m, int n) {
-        ListNode virtual = new ListNode(0, head.next);
-        ListNode p = virtual;
+        ListNode virtual = new ListNode(0, head);
+        ListNode pre = virtual;
         ListNode temp = null;
         for (int i = 1; i < m; i++) {
-            p = p.next;
+            pre = pre.next;
         }
-        head = p.next;
+        head = pre.next;
         for (int i = m; i < n; i++) {
+            //P         H -> T -> S
+            //1 -> 3 -> 2 -> 4 -> 5
             temp =head.next;
-
-
-            p.next=temp;
-
-
+            head.next=temp.next;
+            temp.next=pre.next;
+            pre.next=temp;
         }
         return virtual.next;
     }
