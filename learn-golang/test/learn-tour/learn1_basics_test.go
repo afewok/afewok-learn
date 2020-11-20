@@ -154,6 +154,7 @@ func Test_constants(t *testing.T) {
 
 const Pi = 3.14
 
+//数值常量
 func Test_numeric_constants(t *testing.T) {
 	fmt.Println(needInt(Small))
 	fmt.Println(needFloat(Small))
