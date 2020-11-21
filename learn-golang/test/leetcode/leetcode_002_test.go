@@ -37,10 +37,67 @@ func preData() []*ListNode {
 }
 
 func addTwoNumbers1(l1 *ListNode, l2 *ListNode) *ListNode {
-	var 
-	return nil
+	var addOne bool = false
+	var dummy *ListNode = &ListNode{0, nil}
+	temp := dummy
+
+	for addOne || l1 != nil || l2 != nil {
+		switch {
+		case addOne:
+			temp.Next = &ListNode{1, nil}
+		default:
+			temp.Next = &ListNode{0, nil}
+		}
+
+		temp = temp.Next
+		if l1 != nil {
+			temp.Val += l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			temp.Val += l2.Val
+			l2 = l2.Next
+		}
+		switch {
+		case temp.Val > 9:
+			addOne = true
+		default:
+			addOne = false
+		}
+
+		temp.Val = temp.Val % 10
+	}
+	return dummy.Next
 }
 
 func addTwoNumbers2(l1 *ListNode, l2 *ListNode) *ListNode {
-	return nil
+	val := 0
+	var addOne bool = false
+	var l2Next *ListNode = nil
+	if l2 != nil && l2.Next != nil {
+		l2Next = l2.Next
+	}
+	if l2 != nil {
+		val += l2.Val
+	}
+
+	l1.Val += val
+	if l1.Val > 9 {
+		addOne = true
+	}
+	l1.Val %= 10
+
+	if l1.Next == nil && (addOne || l2Next != nil) {
+		l1.Next = new(ListNode)
+	}
+
+	l1Next := l1.Next
+	if addOne {
+		l1Next.Val++
+	}
+
+	if l1Next != nil || l2Next != nil {
+		addTwoNumbers2(l1Next, l2Next)
+	}
+	return l1
 }

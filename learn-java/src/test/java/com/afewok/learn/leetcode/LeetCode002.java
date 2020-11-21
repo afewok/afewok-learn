@@ -67,17 +67,17 @@ public class LeetCode002 {
         ListNode p = dummy;
         while (addOne || l1 != null || l2 != null) {
             p.next = new ListNode(addOne ? 1 : 0, null);
+            p = p.next;
             if (l1 != null) {
-                p.next.val += l1.val;
+                p.val += l1.val;
                 l1 = l1.next;
             }
             if (l2 != null) {
-                p.next.val += l2.val;
+                p.val += l2.val;
                 l2 = l2.next;
             }
-            addOne = p.next.val > 9 ? true : false;
-            p.next.val = p.next.val % 10;
-            p = p.next;
+            addOne = p.val > 9 ? true : false;
+            p.val = p.val % 10;
         }
         return dummy.next;
     }
@@ -91,12 +91,14 @@ public class LeetCode002 {
         if (l1.next == null && (addOne || l2next != null)) {
             l1.next = new ListNode();
         }
+
+        ListNode l1next = l1.next;
         if (addOne) {
-            l1.next.val++;
+            l1next.val++;
         }
 
-        if (l1.next != null || l2next != null) {
-            addTwoNumbers2(l1.next, l2next);
+        if (l1next != null || l2next != null) {
+            addTwoNumbers2(l1next, l2next);
         }
         return l1;
     }
