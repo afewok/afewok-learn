@@ -16,7 +16,7 @@ import (
  *
  * 思路：暴力2次循环、头尾递进、hash字典、数组存储差值
  */
-func Test_leet_code_001(t *testing.T) {
+func Test_leetcode_001(t *testing.T) {
 	var num []int = []int{2, 7, 11, 15}
 	var target int = 9
 	result1 := twoSum1(num, target)

@@ -1,8 +1,11 @@
 package com.afewok.learn.leetcode;
 
+import java.util.List;
+
 import org.testng.annotations.Test;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * 2. 两数相加
@@ -12,10 +15,11 @@ import lombok.AllArgsConstructor;
  * 
  * 示例： 输入：(2 -> 4 -> 3) + (5 -> 6 -> 4) 输出：7 -> 0 -> 8 原因：342 + 465 = 807
  * 
- * 思路：
+ * 思路：虚拟头结点遍历、递归维护一个节点
  */
 public class LeetCode002 {
 
+    @NoArgsConstructor
     @AllArgsConstructor
     public class ListNode {
         int val;
@@ -24,13 +28,26 @@ public class LeetCode002 {
 
     @Test
     public void leetCode002() {
-        ListNode l1 = new ListNode(2, new ListNode(4, new ListNode(3, null)));
-        ListNode l2 = new ListNode(5, new ListNode(6, new ListNode(4, null)));
+        ListNode[] list1 = preDate();
 
-        print(l1);
-        print(l2);
-        ListNode result = addTwoNumbers(l1, l2);
-        print(result);
+        print(list1[0]);
+        print(list1[1]);
+        ListNode result1 = addTwoNumbers1(list1[0], list1[1]);
+        print(result1);
+
+        ListNode[] list2 = preDate();
+
+        print(list2[0]);
+        print(list2[1]);
+        ListNode result2 = addTwoNumbers2(list2[0], list2[1]);
+        print(result2);
+    }
+
+    private ListNode[] preDate() {
+        ListNode l1 = new ListNode(9, new ListNode(9,
+                new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, null)))))));
+        ListNode l2 = new ListNode(9, new ListNode(9, new ListNode(9, null)));
+        return new ListNode[] { l1, l2 };
     }
 
     public void print(ListNode node) {
@@ -44,14 +61,43 @@ public class LeetCode002 {
         System.out.println();
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode dummy = new ListNode(0, null);
-        while (l1 != null || l2 != null) {
-            if(l1==null){
-
+    public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
+        boolean addOne = false;
+        ListNode dummy = new ListNode();
+        ListNode p = dummy;
+        while (addOne || l1 != null || l2 != null) {
+            p.next = new ListNode(addOne ? 1 : 0, null);
+            if (l1 != null) {
+                p.next.val += l1.val;
+                l1 = l1.next;
             }
+            if (l2 != null) {
+                p.next.val += l2.val;
+                l2 = l2.next;
+            }
+            addOne = p.next.val > 9 ? true : false;
+            p.next.val = p.next.val % 10;
+            p = p.next;
+        }
+        return dummy.next;
+    }
+
+    public ListNode addTwoNumbers2(ListNode l1, ListNode l2) {
+        l1.val = l1.val + (l2 == null ? 0 : l2.val);
+        boolean addOne = l1.val > 9 ? true : false;
+        l1.val = l1.val % 10;
+
+        ListNode l2next = (l2 == null ? null : l2.next);
+        if (l1.next == null && (addOne || l2next != null)) {
+            l1.next = new ListNode();
+        }
+        if (addOne) {
+            l1.next.val++;
         }
 
-        return dummy.next;
+        if (l1.next != null || l2next != null) {
+            addTwoNumbers2(l1.next, l2next);
+        }
+        return l1;
     }
 }

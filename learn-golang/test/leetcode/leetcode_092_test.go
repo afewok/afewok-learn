@@ -1,7 +1,6 @@
 package leetcode
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -14,25 +13,12 @@ import (
  *
  * 思路：递归、虚拟头结点(迭代链接反转)
  */
-func Test_leet_code_092(t *testing.T) {
+func Test_leetcode_092(t *testing.T) {
 	m, n := 2, 4
 	var head1 *ListNode = &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}}
-	show(head1)
+	showListNode(head1)
 	result1 := reverseBetween1(head1, m, n)
-	show(result1)
-}
-
-func show(head *ListNode) {
-	for head != nil {
-		fmt.Printf("%v -> ", head.Val)
-		head = head.Next
-	}
-	fmt.Println("NULL")
-}
-
-type ListNode struct {
-	Val  int
-	Next *ListNode
+	showListNode(result1)
 }
 
 func reverseBetween1(head *ListNode, m int, n int) *ListNode {
