@@ -12,7 +12,6 @@ import "testing"
  *
  * 思路：虚拟头结点遍历、递归维护一个节点
  */
-
 func Test_leetcode_002(t *testing.T) {
 	arrayPoint1 := preData()
 	showListNode(arrayPoint1[0])
@@ -41,7 +40,7 @@ func addTwoNumbers1(l1 *ListNode, l2 *ListNode) *ListNode {
 	var dummy *ListNode = &ListNode{0, nil}
 	temp := dummy
 
-	for addOne || l1 != nil || l2 != nil {
+	for l1 != nil || l2 != nil {
 		switch {
 		case addOne:
 			temp.Next = &ListNode{1, nil}
@@ -66,6 +65,9 @@ func addTwoNumbers1(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 
 		temp.Val = temp.Val % 10
+	}
+	if addOne {
+		temp.Next = &ListNode{1, nil}
 	}
 	return dummy.Next
 }

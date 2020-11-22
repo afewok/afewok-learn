@@ -65,7 +65,7 @@ public class LeetCode002 {
         boolean addOne = false;
         ListNode dummy = new ListNode();
         ListNode p = dummy;
-        while (addOne || l1 != null || l2 != null) {
+        while (l1 != null || l2 != null) {
             p.next = new ListNode(addOne ? 1 : 0, null);
             p = p.next;
             if (l1 != null) {
@@ -78,6 +78,9 @@ public class LeetCode002 {
             }
             addOne = p.val > 9 ? true : false;
             p.val = p.val % 10;
+        }
+        if (addOne) {
+            p.next = new ListNode(1, null);
         }
         return dummy.next;
     }
