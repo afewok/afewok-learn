@@ -2,6 +2,7 @@ package learntour
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"testing"
 
@@ -289,11 +290,40 @@ func Test_range_continued(t *testing.T) {
 
 //练习：切片
 func Test_exercise_slices(t *testing.T) {
-	pic.Show(Pic)
+	pic.Show(Pic(func(x, y int) int {
+		return (x + y) / 2
+	}))
+
+	pic.Show(Pic(func(x, y int) int {
+		return x * y
+	}))
+
+	pic.Show(Pic(func(x, y int) int {
+		return x ^ y
+	}))
+
+	pic.Show(Pic(func(x, y int) int {
+		return int(float64(x) * math.Log(float64(y)))
+	}))
+
+	pic.Show(Pic(func(x, y int) int {
+		return x % (y + 1)
+	}))
 }
 
-func Pic(dx, dy int) [][]uint8 {
-	return [][]uint8{}
+func Pic(fn func(x, y int) int) func(dx, dy int) [][]uint8 {
+
+	return func(dx, dy int) [][]uint8 {
+		var pic [][]uint8 = make([][]uint8, dy)
+		for y := 0; y < dy; y++ {
+			pic[y] = make([]uint8, dy)
+			for x := 0; x < dx; x++ {
+				pic[y][x] = uint8(fn(x, y))
+			}
+
+		}
+		return pic
+	}
 }
 
 //映射
@@ -365,5 +395,64 @@ func Test_exercise_maps(t *testing.T) {
 }
 
 func WordCount(s string) map[string]int {
-	return map[string]int{"x": 1}
+	strs := strings.Fields(s)
+	maps := map[string]int{}
+	for _, v := range strs {
+		maps[v]++
+	}
+	return maps
+}
+
+//函数值
+func Test_function_values(t *testing.T) {
+	fmt.Println("函数也是值。它们可以像其它值一样传递。")
+	fmt.Println("函数值可以用作函数的参数或返回值。")
+	hypot := func(x, y float64) float64 {
+		return math.Sqrt(x*x + y*y)
+	}
+	fmt.Println(hypot(5, 12))
+	fmt.Println(compute(hypot))
+	fmt.Println(compute(math.Pow))
+
+	fmt.Println(func(x, y int) int {
+		return x + y
+	}(1, 2))
+}
+
+func compute(fn func(float64, float64) float64) float64 {
+	return fn(3, 4)
+}
+
+//函数的闭包
+func Test_function_closures(t *testing.T) {
+	pos, neg := adder(), adder()
+	for i := 0; i < 10; i++ {
+		fmt.Println(pos(i), neg(-2*i))
+	}
+}
+
+func adder() func(int) int {
+	sum := 0
+	return func(x int) int {
+		sum += x
+		return sum
+	}
+}
+
+//练习：斐波纳契闭包（这个数列从第3项开始，每一项都等于前两项之和。）
+//0、1、1、2、3、5、8、13、21、34、……
+func Test_exercise_fibonacci_closure(t *testing.T) {
+	f := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Print(f(), "、")
+	}
+}
+
+func fibonacci() func() int {
+	//返回一个“返回int的函数”
+	var num1, num2 int = -1, 1
+	return func() int {
+		num1, num2 = num2, num1+num2
+		return num2
+	}
 }
