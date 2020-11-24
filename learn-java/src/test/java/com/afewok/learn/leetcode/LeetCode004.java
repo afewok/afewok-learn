@@ -28,6 +28,9 @@ public class LeetCode004 {
 
     @Test
     public void leetCode003() {
+        int[] nums1 = { 1, 3 };
+        int[] nums2 = { 2 };
+        System.out.println(findMedianSortedArrays(nums1, nums2));
     }
 
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
