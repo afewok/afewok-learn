@@ -132,3 +132,149 @@ func (v *VertexA) scale4(f float64) {
 func (v *VertexA) abs4() float64 {
 	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
+
+//接口
+func Test_interfaces(t *testing.T) {
+	println("接口类型 是由一组方法签名定义的集合。接口不允许指定参数类型是指针，而入参传了值")
+	println("接口类型的变量可以保存任何实现了这些方法的值")
+
+	var a abser
+	f := MyFloat5(-math.Sqrt2)
+	v := Vertex5{3, 4}
+
+	a = f //a MyFloat 实现了abser
+	fmt.Println(a.abs5())
+
+	a = &v //a *Vertex 实现了abser
+	fmt.Println(a.abs5())
+
+	a = &f //a MyFloat 实现了abser
+	fmt.Println(a.abs5())
+
+	// a = v //v 是一个Vertex(不是 *Vertex)，所以没有实现abser
+
+}
+
+type abser interface {
+	abs5() float64
+}
+
+type MyFloat5 float64
+
+func (f MyFloat5) abs5() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return float64(f)
+}
+
+type Vertex5 struct {
+	X, Y float64
+}
+
+func (v *Vertex5) abs5() float64 {
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+//接口与隐式实现
+func Test_interfaces_are_satisfied_implicitly(t *testing.T) {
+	println("类型通过实现一个接口的所有方法来实现该接口。既然无需专门显式声明，也就没有“implements”关键字。")
+	println("隐式接口从接口的实现中解耦了定义，这样接口的实现可以出现在任何包中，无需提前准备。")
+	println("因此，也就无需在每一个实现上增加新的接口名称，这样同时也鼓励了明确的接口定义。")
+
+	var i I = &T{"hello"}
+	i.M()
+
+}
+
+type I interface {
+	M()
+}
+
+type T struct {
+	S string
+}
+
+func (t *T) M() {
+	if t == nil {
+		fmt.Println("<nil>")
+		return
+	}
+	fmt.Println(t.S)
+}
+
+//接口值
+func Test_interface_values(t *testing.T) {
+	println("接口也是值。它们可以像其它值一样传递。")
+	println("接口值可以用作函数的参数或返回值。在内部，接口值可以看做包含值和具体类型的元组")
+	println("接口值保存了一个具体底层类型的具体值。接口值调用方法时会执行其底层类型的同名方法。")
+	var i I = &T{"Hello"}
+	describe(i)
+	i.M()
+
+	i = F(math.Pi)
+	describe(i)
+	i.M()
+
+}
+
+type F float64
+
+func (f F) M() {
+	fmt.Println(f)
+}
+
+func describe(i I) {
+	fmt.Printf("(%v,%T)\n", i, i)
+}
+
+//底层值为 nil 的接口值
+func Test_interface_values_with_nil(t *testing.T) {
+	println("即便接口内的具体值为 nil，方法仍然会被 nil 接收者调用。")
+	println("在一些语言中，这会触发一个空指针异常，但在 Go 中通常会写一些方法来优雅地处理它")
+	println("nil 在 Go语言中只能被赋值给指针和接口")
+	println("Golang中的interface类型包含两部分信息——值信息和类型信息，只有interface的值合并类型都为nil时interface才为nil")
+	var i I = errFunc()
+	describe(i)
+	i.M()
+
+	i = &T{"hello"}
+	describe(i)
+	i.M()
+}
+
+func errFunc() *T {
+	return nil
+}
+
+//nil 接口值
+func Test_nil_interface_values(t *testing.T) {
+	println("nil 接口值既不保存值也不保存具体类型。")
+	println("为 nil 接口调用方法会产生运行时错误，因为接口的元组内并未包含能够指明该调用哪个 具体 方法的类型。")
+	var i I
+	describe(i)
+	// i.M() //为 nil 接口调用方法会产生运行时错误，因为接口的元组内并未包含能够指明该调用哪个 具体 方法的类型。
+}
+
+//空接口
+func Test_empty_interface(t *testing.T) {
+	println("指定了零个方法的接口值被称为 *空接口：*  interface{}")
+	println("空接口可保存任何类型的值。（因为每个类型都至少实现了零个方法。）")
+	println("空接口被用来处理未知类型的值。例如，fmt.Print 可接受类型为 interface{} 的任意数量的参数。")
+	var i interface{}
+	describe1(i)
+
+	i = 42
+	describe1(i)
+
+	i = "hello"
+	describe1(i)
+}
+
+func describe1(i interface{}) {
+	fmt.Printf("(%v,%T)\n", i, i)
+}
+
+//类型断言
+
+//类型选择
