@@ -3,7 +3,9 @@ package learntour
 import (
 	"fmt"
 	"math"
+	"strconv"
 	"testing"
+	"time"
 )
 
 //方法
@@ -276,5 +278,159 @@ func describe1(i interface{}) {
 }
 
 //类型断言
+func Test_type_assertions(t *testing.T) {
+	println("类型断言 提供了访问接口值底层具体值的方式  t := i.(T) 若t未保存T类型的值，该语句会发生 恐慌")
+	println("")
+	println("为了 判断 一个接口值是否保存了一个特定的类型，类型断言可返回两个值：其底层值以及一个报告断言是否成功的布尔值。 t, ok := i.(T)   ok为false时，t为初始化值")
+	var i interface{} = "hello"
+
+	s := i.(string)
+	fmt.Println(s)
+
+	s, ok := i.(string)
+	fmt.Println(s, ok)
+
+	f, ok := i.(float64)
+	fmt.Println(f, ok)
+
+	// f = i.(float64) //报错（panic）
+}
 
 //类型选择
+func Test_type_switches(t *testing.T) {
+	println("类型与值都可以是属性")
+	println("类型选择 是一种按顺序从几个类型断言中选择分支的结构。")
+	println("类型选择与一般的 switch 语句相似，不过类型选择中的 case 为类型（而非值）， 它们针对给定接口值所存储的值的类型进行比较。")
+	println("类型选择中的声明与类型断言 i.(T) 的语法相同，只是具体类型 T 被替换成了关键字 type。")
+	do(21)
+	do("hello")
+	do(true)
+}
+
+func do(i interface{}) {
+	switch v := i.(type) {
+	case int:
+		fmt.Printf("Twice %v is %v\n", v, v*2)
+	case string:
+		fmt.Printf("%q is %v bytes long\n", v, len(v))
+	default:
+		fmt.Printf("I don`t know about type %T!\n", v)
+	}
+}
+
+//Stringer
+func Test_stringer(t *testing.T) {
+	println("Stringer 是一个可以用字符串描述自己的类型，类似toString 方法重写")
+	a := Person{"Arthur Dent", 42}
+	z := Person{"Zaphod Beeblebrox", 9001}
+	fmt.Println(a, z.String())
+}
+
+type Person struct {
+	Name string
+	Age  int
+}
+
+func (p Person) String() string {
+	return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+}
+
+//练习：Stringer
+func Test_exercise_stringer(t *testing.T) {
+	hosts := map[string]IPAddr{
+		"loopback":  {127, 0, 0, 1},
+		"googleDNS": {8, 8, 8, 8},
+	}
+	for name, ip := range hosts {
+		fmt.Printf("%v: %v\n", name, ip)
+	}
+}
+
+type IPAddr [4]byte
+
+func (arr IPAddr) String() string {
+	// return fmt.Sprintf("%s", strings.Join(arr, "."))
+
+	// fmt.Printf()
+	var temp string = ""
+	for _, v := range arr {
+		if temp == "" {
+			temp = fmt.Sprintf("%v", v)
+		} else {
+			temp = temp + fmt.Sprintf(".%v", v)
+		}
+	}
+	return temp
+}
+
+//错误
+func Test_errors(t *testing.T) {
+	println("Go 程序使用 error 值来表示错误状态")
+	println("通常函数会返回一个 error 值，调用的它的代码应当判断这个错误是否等于 nil 来进行错误处理。")
+	println("error 为 nil 时表示成功；非 nil 的 error 表示失败。")
+
+	i, err := strconv.Atoi("42")
+	if err != nil {
+		fmt.Printf("couldn`t convert number: %v\n", err)
+	} else {
+		fmt.Println("Converted integer:", i)
+	}
+
+	if err := run(); err != nil {
+		fmt.Println(err)
+	}
+}
+
+type MyError struct {
+	When time.Time
+	What string
+}
+
+func (e *MyError) Error() string {
+	return fmt.Sprintf("at %v, %s", e.When, e.What)
+}
+
+func run() error {
+	return &MyError{time.Now(), "it didn`t work"}
+}
+
+//练习：错误
+func Test_exercise_errors(t *testing.T) {
+	fmt.Println(Sqrt1(2))
+	fmt.Println(Sqrt1(-2))
+}
+
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+
+}
+
+func Sqrt1(x float64) (float64, error) {
+	return 0, nil
+}
+
+//Reader
+func Test_reader(t *testing.T) {
+
+}
+
+//练习：Reader
+func Test_exercise_reader(t *testing.T) {
+
+}
+
+//练习：rot13Reader
+func Test_exercise_rot_reader(t *testing.T) {
+
+}
+
+//图像
+func Test_images(t *testing.T) {
+
+}
+
+//练习：图像
+func Test_exercise_images(t *testing.T) {
+
+}
