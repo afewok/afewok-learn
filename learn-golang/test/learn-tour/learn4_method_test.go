@@ -2,10 +2,18 @@ package learntour
 
 import (
 	"fmt"
+	"image"
+	"image/color"
+	"io"
 	"math"
+	"os"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
+
+	"golang.org/x/tour/pic"
+	"golang.org/x/tour/reader"
 )
 
 //方法
@@ -363,7 +371,7 @@ func (arr IPAddr) String() string {
 	return temp
 }
 
-//错误
+//错误(重写Error方法，类似返回error重写输出)
 func Test_errors(t *testing.T) {
 	println("Go 程序使用 error 值来表示错误状态")
 	println("通常函数会返回一个 error 值，调用的它的代码应当判断这个错误是否等于 nil 来进行错误处理。")
@@ -403,34 +411,106 @@ func Test_exercise_errors(t *testing.T) {
 type ErrNegativeSqrt float64
 
 func (e ErrNegativeSqrt) Error() string {
-
+	println("在 Error 方法内调用 fmt.Sprint(e) 会让程序陷入死循环。可以通过先转换 e 来避免这个问题：fmt.Sprint(float64(e))。这是为什么呢？")
+	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
 }
 
 func Sqrt1(x float64) (float64, error) {
+	if x < 0 {
+		return 0, ErrNegativeSqrt(x)
+	}
 	return 0, nil
 }
 
 //Reader
 func Test_reader(t *testing.T) {
+	println("io 包指定了 io.Reader 接口，它表示从数据流的末尾进行读取。")
+	println("io.Reader 接口有一个 Read 方法： func (T) Read(b []byte) (n int, err error)")
+	println("Read 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 io.EOF 错误。")
 
+	r := strings.NewReader("Hello World")
+	b := make([]byte, 8)
+	for {
+		n, err := r.Read(b)
+		fmt.Printf("n=%v err=%v b=%v\n", n, err, b)
+		fmt.Printf("b[:n]=%q\n", b[:n])
+		if err == io.EOF {
+			break
+		}
+	}
 }
 
 //练习：Reader
 func Test_exercise_reader(t *testing.T) {
-
+	println("实现一个 Reader 类型，它产生一个 ASCII 字符 'A' 的无限流。")
+	reader.Validate(MyReader{})
 }
+
+func (m MyReader) Read(b []byte) (int, error) {
+	for i := 0; i < len(b); i++ {
+		b[i] = 'A'
+	}
+	return len(b), nil
+}
+
+type MyReader struct{}
 
 //练习：rot13Reader
 func Test_exercise_rot_reader(t *testing.T) {
+	println("有种常见的模式是一个 io.Reader 包装另一个 io.Reader，然后通过某种方式修改其数据流。")
+	println("例如，gzip.NewReader 函数接受一个 io.Reader（已压缩的数据流）并返回一个同样实现了 io.Reader 的 *gzip.Reader（解压后的数据流）。")
+	println("编写一个实现了 io.Reader 并从另一个 io.Reader 中读取数据的 rot13Reader，通过应用 rot13 代换密码对数据流进行修改。")
 
+	s := strings.NewReader("Lbh penpxrq gur pdqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
+}
+
+type rot13Reader struct {
+	r io.Reader
+}
+
+func (rot rot13Reader) Read(p []byte) (int, error) {
+	n, e := rot.r.Read(p)
+	for i := 0; i < n; i++ {
+		b := p[i]
+		switch {
+		case (b >= 'A' && b <= 'M') || (b >= 'a' && b <= 'm'):
+			p[i] += 13
+		case (b >= 'N' && b <= 'Z') || (b >= 'n' && b <= 'z'):
+			p[i] -= 13
+		}
+	}
+	return n, e
 }
 
 //图像
 func Test_images(t *testing.T) {
-
+	println("color.Color 和 color.Model 类型也是接口，但是通常因为直接使用预定义的实现 image.RGBA 和 image.RGBAModel 而被忽视了。这些接口和类型由 image/color 包定义。")
+	m := image.NewRGBA(image.Rect(0, 0, 100, 100))
+	fmt.Println(m.Bounds())
+	fmt.Println(m.At(0, 0).RGBA())
 }
 
 //练习：图像
 func Test_exercise_images(t *testing.T) {
+	m := Image{}
+	pic.ShowImage(m)
+}
 
+type Image struct{} //新建一个Image结构体
+
+func (i Image) ColorModel() color.Model {
+	//实现Image包中颜色模式的方法
+	return color.RGBAModel
+}
+
+func (i Image) Bounds() image.Rectangle {
+	//实现Image包中生成图片边界的方法
+	return image.Rect(0, 0, 200, 200)
+}
+
+func (i Image) At(x, y int) color.Color {
+	//实现Image包中生成图像某个点的方法
+	return color.RGBA{uint8(x), uint8(y), uint8(255), uint8(255)}
 }
