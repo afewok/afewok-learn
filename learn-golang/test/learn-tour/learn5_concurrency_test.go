@@ -2,8 +2,11 @@ package learntour
 
 import (
 	"fmt"
+	"sync"
 	"testing"
 	"time"
+
+	"golang.org/x/tour/tree"
 )
 
 //Go 程
@@ -79,11 +82,50 @@ func fibonacci2(n int, c chan int) {
 
 //select 语句
 func Test_select(t *testing.T) {
+	println("select 语句使一个 Go 程可以等待多个通信操作。")
+	println("select 会阻塞到某个分支可以继续执行为止，这时就会执行该分支。当多个分支都准备好时会随机选择一个执行。")
+	c := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-c)
+		}
+		quit <- 0
+	}()
+	fibonacci3(c, quit)
+}
 
+func fibonacci3(c, quit chan int) {
+	x, y := 0, 1
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
 }
 
 //默认选择
 func Test_default_selection(t *testing.T) {
+	println("当 select 中的其它分支都没有准备好时，default 分支就会执行。")
+	println("为了在尝试发送或者接收时不发生阻塞，可使用 default 分支：")
+	tick := time.Tick(100 * time.Millisecond)
+	boom := time.After(500 * time.Millisecond)
+	for {
+		select {
+		case <-tick:
+			fmt.Println("tick.")
+		case <-boom:
+			fmt.Println("BOOM!")
+			return
+		default:
+			fmt.Println("    .")
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
 
 }
 
@@ -91,10 +133,54 @@ func Test_default_selection(t *testing.T) {
 func Test_exercise_equivalent_binary_trees(t *testing.T) {
 }
 
+//Walk 步进 tree t 将所有的值从 tree 发送到 channel ch。
+func Walk(t *tree.Tree, ch chan int) {
+
+}
+
+// Same 检测树 t1 和 t2 是否含有相同的值。
+func Same(t1, t2 *tree.Tree) bool {
+
+}
+
 //sync.Mutex
 func Test_mutex_counter(t *testing.T) {
+	println("这里涉及的概念叫做 *互斥（mutual*exclusion）* ，我们通常使用 *互斥锁（Mutex）* 这一数据结构来提供这种机制。")
+	println("Go 标准库中提供了 sync.Mutex 互斥锁类型及其两个方法： Lock Unlock")
+	println("我们可以通过在代码前调用 Lock 方法，在代码后调用 Unlock 方法来保证一段代码的互斥执行")
+	println("我们也可以用 defer 语句来保证互斥锁一定会被解锁")
+
+	c := SafeCounter{v: make(map[string]int)}
+	for i := 0; i < 1000; i++ {
+		go c.Inc("somekey")
+	}
+
+	time.Sleep(time.Second)
+	fmt.Println(c.Value("somekey"))
+}
+
+type SafeCounter struct {
+	//SafeCounter 的并发使用是安全的
+	v   map[string]int
+	mux sync.Mutex
+}
+
+func (c *SafeCounter) Inc(key string) {
+	//Inc 增加给定key的计数器的值
+	c.mux.Lock()
+	//Lock 之后同一时刻只有一个goroutine能访问c.V
+	c.v[key]++
+	c.mux.Unlock()
+}
+
+func (c *SafeCounter) Value(key string) int {
+	//Value返回给定的key 的计数器的当前值
+	c.mux.Lock()
+	//Lock 之后同一时刻只有一个goroutine能访问c.V
+	defer c.mux.Unlock()
+	return c.v[key]
 }
 
 //练习：Web 爬虫
-func Test_mutex_counter(t *testing.T) {
+func Test_exercise_web_crawler(t *testing.T) {
 }
