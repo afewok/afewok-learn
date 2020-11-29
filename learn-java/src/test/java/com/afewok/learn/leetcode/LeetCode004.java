@@ -29,7 +29,7 @@ import org.testng.annotations.Test;
 public class LeetCode004 {
 
     @Test
-    public void leetCode003() {
+    public void leetCode004() {
         int[] nums1 = { 1, 2 };
         int[] nums2 = { 3, 4 };
         System.out.println(findMedianSortedArrays1(nums1, nums2));

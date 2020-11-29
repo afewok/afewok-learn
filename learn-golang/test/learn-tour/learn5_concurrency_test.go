@@ -140,7 +140,7 @@ func Walk(t *tree.Tree, ch chan int) {
 
 // Same 检测树 t1 和 t2 是否含有相同的值。
 func Same(t1, t2 *tree.Tree) bool {
-
+	return true
 }
 
 //sync.Mutex
@@ -183,7 +183,13 @@ func (c *SafeCounter) Value(key string) int {
 
 //练习：Web 爬虫
 func Test_exercise_web_crawler(t *testing.T) {
-	Crawl("https://golang.org/", 4, fetcher)
+	println("修改 Crawl 函数来并行地抓取 URL，并且保证不重复。")
+	crawlerMap := CrawlerMap{v: make(map[string]string)}
+	go Crawl("https://golang.org/", 4, fetcher, crawlerMap)
+	time.Sleep(time.Second)
+	for url, body := range crawlerMap.v {
+		fmt.Printf("found: %s %q\n", url, body)
+	}
 }
 
 type Fetcher interface {
@@ -192,21 +198,20 @@ type Fetcher interface {
 }
 
 // Crawl 使用 fetcher 从某个 URL 开始递归的爬取页面，直到达到最大深度。
-func Crawl(url string, depth int, fetcher Fetcher) {
-	// TODO: 并行的抓取 URL。
-	// TODO: 不重复抓取页面。
-	// 下面并没有实现上面两种情况：
+func Crawl(url string, depth int, fetcher Fetcher, crawlerMap CrawlerMap) {
 	if depth <= 0 {
 		return
 	}
 	body, urls, err := fetcher.Fetch(url)
 	if err != nil {
-		fmt.Println(err)
+		crawlerMap.put(url, err.Error())
 		return
 	}
-	fmt.Printf("found: %s %q\n", url, body)
+	crawlerMap.put(url, body)
 	for _, u := range urls {
-		Crawl(u, depth-1, fetcher)
+		if _, ok := crawlerMap.v[u]; !ok {
+			go Crawl(u, depth-1, fetcher, crawlerMap)
+		}
 	}
 	return
 }
@@ -257,4 +262,22 @@ var fetcher = fakeFetcher{
 			"https://golang.org/pkg/",
 		},
 	},
+}
+
+type CrawlerMap struct {
+	v   map[string]string
+	mux sync.Mutex
+}
+
+func (c *CrawlerMap) put(key, value string) {
+	c.mux.Lock()
+	c.v[key] = value
+	c.mux.Unlock()
+}
+
+func (c *CrawlerMap) get(key string) string {
+	c.mux.Lock()
+	value := c.v[key]
+	c.mux.Unlock()
+	return value
 }
