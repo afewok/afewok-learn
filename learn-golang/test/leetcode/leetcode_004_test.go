@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"fmt"
+	"sort"
 	"testing"
 )
 
@@ -37,13 +38,46 @@ func Test_leetcode_004(t *testing.T) {
 }
 
 func findMedianSortedArrays1(nums1 []int, nums2 []int) float64 {
-
-	return 0
+	length := len(nums1) + len(nums2)
+	var pair int = length / 2
+	var list []int = append(nums1, nums2...)
+	sort.Sort(sort.IntSlice(list))
+	if pair*2 == length {
+		return float64(list[pair-1]+list[pair]) / 2.0
+	}
+	return float64(list[pair])
 }
 
 func findMedianSortedArrays2(nums1 []int, nums2 []int) float64 {
+	nums1Length, nums2Length := len(nums1), len(nums2)
+	totalLength := nums1Length + nums2Length
+	pair, last, current := totalLength/2, 0, 0
+	for i, n1, n2 := 0, 0, 0; i < totalLength; i++ {
+		last = current
+		if nums1Length > n1 && nums2Length > n2 {
+			if nums1[n1] <= nums2[n2] {
+				current = nums1[n1]
+				n1++
+			} else {
+				current = nums2[n2]
+				n2++
+			}
+		} else if nums1Length > n1 {
+			current = nums1[n1]
+			n1++
+		} else {
+			current = nums2[n2]
+			n2++
+		}
 
-	return 0
+		if pair == i {
+			if pair*2 == totalLength {
+				return float64(last+current) / 2.0
+			}
+			return float64(current)
+		}
+	}
+	panic("Illegal nums1 or nums2")
 }
 
 func findMedianSortedArrays3(nums1 []int, nums2 []int) float64 {
