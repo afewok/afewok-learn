@@ -13,24 +13,53 @@ import org.testng.annotations.Test;
  * 
  * 示例 2：输入: "cbbd" 输出: "bb"
  * 
- * 思路：
+ * 思路：暴力解法、中心扩散、动态规划、Manacher 算法
  */
 public class LeetCode005 {
 
     @Test
     public void leetCode005() {
-        String str1="babad";
-        String str2="cbbd";
+        String str1 = "sbv";
+        String str2 = "babad";
+        String str3 = "ccc";
+        String str4 = "cbbd";
+        String str5 = "abcabccbacba";
 
         System.out.println(longestPalindrome1(str1));
         System.out.println(longestPalindrome1(str2));
+        System.out.println(longestPalindrome1(str3));
+        System.out.println(longestPalindrome1(str4));
+        System.out.println(longestPalindrome1(str5));
 
     }
 
     public String longestPalindrome1(String s) {
-
-
-
-        return s;
+        char[] chats = s.toCharArray(), maxStr = { chats[0] };
+        int m, n, temp, length = chats.length, maxHalf = maxStr.length / 2;
+        for (int i = 0; i < length && i + maxHalf < length; i++) {
+            for (m = i - 1, n = i + 1; m >= 0 && n < length; m--, n++) {
+                if (chats[m] != chats[n]) {
+                    break;
+                }
+                temp = n - m + 1;
+                if (temp > maxStr.length) {
+                    maxStr = new char[temp];
+                    maxHalf = maxStr.length / 2;
+                    System.arraycopy(chats, m, maxStr, 0, temp);
+                }
+            }
+            for (m = i - 1, n = i; m >= 0 && n < length; m--, n++) {
+                if (chats[m] != chats[n]) {
+                    break;
+                }
+                temp = n - m + 1;
+                if (temp > maxStr.length) {
+                    maxStr = new char[temp];
+                    maxHalf = maxStr.length / 2;
+                    System.arraycopy(chats, m, maxStr, 0, temp);
+                }
+            }
+        }
+        return String.valueOf(maxStr);
     }
 }
