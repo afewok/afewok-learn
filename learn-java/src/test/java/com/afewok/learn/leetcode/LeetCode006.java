@@ -37,5 +37,12 @@ public class LeetCode006 {
 
     @Test
     public void leetCode005() {
+        String s="LEETCODEISHIRING";
+        System.out.println(convert1(s, 3).equals("LCIRETOESIIGEDHN"));
+        System.out.println(convert1(s, 4).equals("LDREOEIIECIHNTSG"));
+    }
+
+    public String convert1(String s, int numRows) {
+        return s;
     }
 }
