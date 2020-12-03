@@ -49,18 +49,18 @@ public class LeetCode006 {
         char[] chats = s.toCharArray();
         int length = chats.length, interval = numRows*2-2,group=(length+interval-1)/interval,sub=0;
         char[] result = new char[length];
-        for (int i = 0; i < group; i++) {
-            int m=i*interval;
-            int n=m+interval;
+        // for (int i = 0; i < group; i++) {
+        //     int m=i*interval;
+        //     int n=m+interval;
 
-            result[sub++]=chats[];
-            int temp=i+interval;
+        //     result[sub++]=chats[];
+        //     int temp=i+interval;
 
-        }
+        // }
 
-        for (int i = 0; i < interval; i++) {
-            result[sub++]=chats[i*interval];
-        }
+        // for (int i = 0; i < interval; i++) {
+        //     result[sub++]=chats[i*interval];
+        // }
         return String.valueOf(result);
     }
 }
