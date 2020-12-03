@@ -36,13 +36,31 @@ import org.testng.annotations.Test;
 public class LeetCode006 {
 
     @Test
-    public void leetCode005() {
-        String s="LEETCODEISHIRING";
+    public void leetCode006() {
+        String s = "LEETCODEISHIRING";
         System.out.println(convert1(s, 3).equals("LCIRETOESIIGEDHN"));
         System.out.println(convert1(s, 4).equals("LDREOEIIECIHNTSG"));
     }
 
     public String convert1(String s, int numRows) {
-        return s;
+        if (numRows < 2) {
+            return s;
+        }
+        char[] chats = s.toCharArray();
+        int length = chats.length, interval = numRows*2-2,group=(length+interval-1)/interval,sub=0;
+        char[] result = new char[length];
+        for (int i = 0; i < group; i++) {
+            int m=i*interval;
+            int n=m+interval;
+
+            result[sub++]=chats[];
+            int temp=i+interval;
+
+        }
+
+        for (int i = 0; i < interval; i++) {
+            result[sub++]=chats[i*interval];
+        }
+        return String.valueOf(result);
     }
 }
