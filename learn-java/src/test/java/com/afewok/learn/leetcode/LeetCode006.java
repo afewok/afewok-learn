@@ -32,6 +32,8 @@ import org.testng.annotations.Test;
  * E C _ I H _ N
  * 
  * T S G
+ * 
+ * 思路：按行排序、按行访问
  */
 public class LeetCode006 {
 
@@ -47,20 +49,29 @@ public class LeetCode006 {
             return s;
         }
         char[] chats = s.toCharArray();
-        int length = chats.length, interval = numRows*2-2,group=(length+interval-1)/interval,sub=0;
+        int length = chats.length, interval = numRows * 2 - 2, group = (length + interval - 1) / interval, sub = 0,
+                count = interval / 2;
         char[] result = new char[length];
-        // for (int i = 0; i < group; i++) {
-        //     int m=i*interval;
-        //     int n=m+interval;
 
-        //     result[sub++]=chats[];
-        //     int temp=i+interval;
+        for (int i = 0; i <= count; i++) {
+            for (int j = 0; j < group; j++) {
+                int m = j * interval;
+                if (i < count) {
+                    int temp1 = m + i;
+                    if (temp1 < length) {
+                        result[sub++] = chats[temp1];
+                    }
+                }
 
-        // }
+                if (i > 0) {
+                    int temp1 = m + interval - i;
+                    if (temp1 < length) {
+                        result[sub++] = chats[temp1];
+                    }
+                }
+            }
+        }
 
-        // for (int i = 0; i < interval; i++) {
-        //     result[sub++]=chats[i*interval];
-        // }
         return String.valueOf(result);
     }
 }
