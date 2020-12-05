@@ -25,7 +25,7 @@ import org.testng.annotations.Test;
 public class LeetCode020 {
 
     @Test
-    public void leetCode001() {
+    public void leetCode020() {
         System.out.println(isValid("()"));
         System.out.println(isValid("()[]{}"));
         System.out.println(isValid("(]"));

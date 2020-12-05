@@ -1,7 +1,5 @@
 package com.afewok.learn.leetcode;
 
-import java.util.*;
-
 import org.testng.annotations.Test;
 
 /**

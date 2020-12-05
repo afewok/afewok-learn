@@ -1,6 +1,5 @@
 package com.afewok.learn.leetcode;
 
-import lombok.AllArgsConstructor;
 import org.testng.annotations.Test;
 
 /**

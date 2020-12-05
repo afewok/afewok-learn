@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
  */
 public class LeetCode021 {
     @Test
-    public void leetCode001() {
+    public void leetCode021() {
         ListNode l11 = new ListNode(1, new ListNode(2, new ListNode(4, null)));
         ListNode l12 = new ListNode(1, new ListNode(3, new ListNode(4, null)));
         ListNode result1 = mergeTwoLists1(l11, l12);
