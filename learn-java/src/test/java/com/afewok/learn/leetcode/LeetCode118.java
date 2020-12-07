@@ -58,7 +58,7 @@ public class LeetCode118 {
         return list.subList(0, numRows);
     }
 
-    public static final List<List<Integer>> list = new ArrayList<>() {
+    public static final List<List<Integer>> list = new ArrayList<List<Integer>>() {
         private static final long serialVersionUID = 8840772557812164465L;
 
         {
