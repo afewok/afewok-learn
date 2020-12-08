@@ -31,12 +31,12 @@ group = 'com.afewok'
 version = '0.0.1-SNAPSHOT'
 description project.name
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 /*解决设置版本不起作用问题*/
 tasks.withType(JavaCompile) {
-    sourceCompatibility = JavaVersion.VERSION_1_8// 设置 JDK 版本
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_11// 设置 JDK 版本
+    targetCompatibility = JavaVersion.VERSION_11
 }
 [compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
 
