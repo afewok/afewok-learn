@@ -1,6 +1,9 @@
 package com.afewok.learn.leetcode;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.afewok.learn.util.Json;
 
 import org.testng.annotations.Test;
 
@@ -30,10 +33,56 @@ public class LeetCode842 {
 
     @Test
     public void leetCode659() {
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("1")));
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("17522")));
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("214748364721474836422147483641")));
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("123456579")));
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("11235813")));
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("112358130")));
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("0123")));
+        System.out.println(Json.toJSONString(splitIntoFibonacci1("1101111")));
     }
 
-    public List<Integer> splitIntoFibonacci(String S) {
+    public List<Integer> splitIntoFibonacci1(String S) {
+        List<Integer> list = new ArrayList<>();
 
-        return null;
+        int length = S.length(), half = length / 2;
+        for (int first = 1; first <= half; first++) {
+            String mStr = S.substring(0, first);
+            if (mStr.length() > 1 && mStr.indexOf("0") == 0) {
+                continue;
+            }
+            if(Long.valueOf(mStr)>Integer.MAX_VALUE){
+                break;
+            }
+            for (int two = 1; two <= half; two++) {
+                int sub = first;
+                String nStr = S.substring(sub, sub + two);
+                if (nStr.length() > 1 && nStr.indexOf("0") == 0) {
+                    continue;
+                }
+                if(Long.valueOf(nStr)>Integer.MAX_VALUE){
+                    break;
+                }
+
+                int mInt = Integer.parseInt(mStr);
+                int nInt = Integer.parseInt(nStr);
+                list.add(mInt);
+
+                while (S.substring(sub).indexOf(nStr) == 0) {
+                    sub = sub + nStr.length();
+                    list.add(nInt);
+                    nInt = nInt + mInt;
+                    mInt = nInt - mInt;
+                    nStr = String.valueOf(nInt);
+                }
+
+                if (length == sub && list.size() > 2) {
+                    return list;
+                }
+                list.clear();
+            }
+        }
+        return list;
     }
 }
