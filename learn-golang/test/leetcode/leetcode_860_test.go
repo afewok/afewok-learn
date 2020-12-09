@@ -6,7 +6,7 @@ import (
 )
 
 func Test_leetcode_860(t *testing.T) {
-	fmt.Println(lemonadeChange2([]int{5, 5, 5, 10, 20}))
+	fmt.Println(lemonadeChange4([]int{5, 5, 5, 10, 20}))
 	fmt.Println(lemonadeChange2([]int{5, 5, 10}))
 	fmt.Println(lemonadeChange2([]int{10, 10}))
 	fmt.Println(lemonadeChange2([]int{5, 5, 10, 10, 20}))
@@ -93,7 +93,7 @@ func lemonadeChange4(bills []int) bool {
 		array[bill/5]++
 		array[bill/10]--
 		array[bill/20]--
-		if array[1] < 0 || array[1]+2*array[2] < 0 {
+		if array[1] < 0 || array[2]*2+array[1] < 0 {
 			return false
 		}
 	}

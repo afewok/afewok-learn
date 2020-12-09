@@ -27,7 +27,7 @@ public class LeetCode860 {
 
     @Test
     public void leetCode842() {
-        Flow.executor(() -> lemonadeChange2(new int[] { 5, 5, 5, 10, 20 }));
+        Flow.executor(() -> lemonadeChange5(new int[] { 5, 5, 5, 10, 20 }));
         Flow.executor(() -> lemonadeChange2(new int[] { 5, 5, 10 }));
         Flow.executor(() -> lemonadeChange2(new int[] { 10, 10 }));
         Flow.executor(() -> lemonadeChange2(new int[] { 5, 5, 10, 10, 20 }));
@@ -151,7 +151,7 @@ public class LeetCode860 {
             array[bill / 5]++;
             array[bill / 10]--;
             array[bill / 20]--;
-            if (array[1] < 0 || array[1] + 2 * array[2] < 0) {
+            if (array[1] < 0 || array[2] * 2 + array[1] < 0) {
                 return false;
             }
         }
