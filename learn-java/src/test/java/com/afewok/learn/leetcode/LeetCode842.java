@@ -32,7 +32,7 @@ import org.testng.annotations.Test;
 public class LeetCode842 {
 
     @Test
-    public void leetCode659() {
+    public void leetCode842() {
         System.out.println(Json.toJSONString(splitIntoFibonacci1("1")));
         System.out.println(Json.toJSONString(splitIntoFibonacci1("17522")));
         System.out.println(Json.toJSONString(splitIntoFibonacci1("214748364721474836422147483641")));
