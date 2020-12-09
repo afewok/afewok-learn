@@ -7,7 +7,7 @@ public class Flow {
     public static <T> T executor(IExecutor<T> executor) {
         long timestamp = System.nanoTime();
         T result = executor.execute();
-        System.out.println("结果：" + Json.toJSONString(result) + "  时间戳:" + (System.nanoTime() - timestamp) / 1000000D);
+        System.out.printf("结果：%s  耗时：%f ns\n", Json.toJSONString(result), (System.nanoTime() - timestamp) / 1000000D);
         return result;
     }
 
