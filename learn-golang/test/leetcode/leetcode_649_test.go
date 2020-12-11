@@ -3,10 +3,7 @@ package leetcode
 import "testing"
 
 /**
-* 649. Dota2 参议院
- */
-/**
- * 376. 摆动序列
+ * 649. Dota2 参议院
  *
  * 思路：贪婪循环遍历（先记录，遇到在毙掉）
  */
