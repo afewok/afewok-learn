@@ -5,6 +5,11 @@ import "testing"
 /**
 * 649. Dota2 参议院
  */
+/**
+ * 376. 摆动序列
+ *
+ * 思路：贪婪循环遍历（先记录，遇到在毙掉）
+ */
 func Test_leetcode_649(t *testing.T) {
 	predictPartyVictory("DRRDRDRDRDDRDRDR")
 }
