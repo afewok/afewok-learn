@@ -103,7 +103,7 @@ public class LeetCode649 {
         }
     }
 
-    public String predictPartyVictory(String senate) {
+    public String predictPartyVictory4(String senate) {
         char[] ch = senate.toCharArray();
         int length = ch.length;
         ListNode p = new ListNode(ch[0], null), m = p, n = null;
@@ -132,36 +132,31 @@ public class LeetCode649 {
         }
     }
 
-//"DRRDRDRDRDDRDRDR"
-//     public String predictPartyVictory(String senate) {
-//         int r = 0, d = 0, fr = 0, fd = 0,hr=-1;
-//         char[] ch = senate.toCharArray();
-//         for (char c : ch) {
-//             if (c == 'R') {
-//                 if (fr > 0) {
-//                     fr--;
-//                 } else {
-//                     r++;
-//                     fd++;
-//                 }
-//             } else {
-//                 if (fd > 0) {
-//                     fd--;
-//                 } else {
-//                     d++;
-//                     fr++;
-//                 }
-//             }
-//         }
-//         r = r - Math.abs(fr);
-//         d = d - Math.abs(fd);
-//         if (r > d) {
-//             return "Radiant";
-//         } else if (r < d) {
-//             return "Dire";
-//         } else if (ch[0] == 'R') {
-//             return "Radiant";
-//         }
-//         return "Dire";
-//     }
+    public String predictPartyVictory(String senate) {
+        boolean R = true, D = true;
+        char[] ch = senate.toCharArray();
+        int length = ch.length, flag = 0;
+        while (R && D) {
+            R = false;
+            D = false;
+            for (int i = 0; i < length; i++) {
+                if (ch[i] == 'R') {
+                    if (flag < 0) {
+                        ch[i] = '.';
+                    } else {
+                        R = true;
+                    }
+                    flag++;
+                }else if (ch[i] == 'D') {
+                    if (flag > 0) {
+                        ch[i] = '.';
+                    } else {
+                        D = true;
+                    }
+                    flag--;
+                }
+            }
+        }
+        return R ? "Radiant" : "Dire";
+    }
 }
