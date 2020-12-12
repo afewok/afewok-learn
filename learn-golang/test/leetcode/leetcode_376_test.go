@@ -10,6 +10,8 @@ import (
  *
  * 思路：动态规划、贪心
  * DP算法（Dynamic Programming,俗称动态规划）
+ *
+ * 排除连续上升，或者连续下降，以及相等的情况就可以了
  */
 func Test_leetcode_376(t *testing.T) {
 	fmt.Println(wiggleMaxLength([]int{1, 7, 4, 9, 2, 5}))
@@ -83,23 +85,48 @@ func max(a, b int) int {
 	return b
 }
 
+func wiggleMaxLength4(nums []int) int {
+	defer timeCost()()
+	length := len(nums)
+	if length < 2 {
+		return length
+	}
+	result := 1
+	preDiff := nums[1] - nums[0]
+	if preDiff != 0 {
+		result = 2
+	}
+	for i := 2; i < length; i++ {
+		diff := nums[i] - nums[i-1]
+		if (diff > 0 && preDiff <= 0) || (diff < 0 && preDiff >= 0) {
+			result++
+			preDiff = diff
+		}
+	}
+	return result
+}
+
 func wiggleMaxLength(nums []int) int {
 	defer timeCost()()
 	length := len(nums)
 	if length < 2 {
 		return length
 	}
-	ans := 1
-	prevDiff := nums[1] - nums[0]
-	if prevDiff != 0 {
-		ans = 2
-	}
-	for i := 2; i < length; i++ {
-		diff := nums[i] - nums[i-1]
-		if (diff > 0 && prevDiff <= 0) || (diff < 0 && prevDiff >= 0) {
-			ans++
-			prevDiff = diff
+	i, preDiff, diff, result := 0, 0, 0, 1
+	for i = 1; i < length; i++ {
+		diff = nums[i] - nums[i-1]
+		if diff != 0 {
+			result++
+			preDiff = diff
+			break
 		}
 	}
-	return ans
+	for i = i + 1; i < length; i++ {
+		diff = nums[i] - nums[i-1]
+		if (diff > 0 && preDiff < 0) || (diff < 0 && preDiff > 0) {
+			result++
+			preDiff = diff
+		}
+	}
+	return result
 }
