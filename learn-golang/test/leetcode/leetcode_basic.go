@@ -1,6 +1,9 @@
 package leetcode
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type ListNode struct {
 	Val  int
@@ -17,4 +20,12 @@ func showListNode(node *ListNode) {
 		node = node.Next
 	}
 	fmt.Println("NULL")
+}
+
+func timeCost() func() {
+	start := time.Now()
+	return func() {
+		tc := time.Since(start)
+		fmt.Printf("time cost = %v\n", tc)
+	}
 }
