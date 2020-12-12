@@ -19,12 +19,12 @@ func containsDuplicate(nums []int) bool {
 	if length < 2 {
 		return false
 	}
-	mp := make(map[int]bool, length)
+	mp := make(map[int]byte, length)
 	for i := 0; i < length; i++ {
 		if _, ok := mp[nums[i]]; ok {
 			return true
 		}
-		mp[nums[i]] = true
+		mp[nums[i]] = 0
 	}
 	return false
 }
