@@ -26,8 +26,7 @@ func wordPattern(pattern string, s string) bool {
 		str, OK1 := mp1[bytes[i]]
 		p, OK2 := mp2[strs[i]]
 		if !OK1 && !OK2 {
-			mp1[bytes[i]] = strs[i]
-			mp2[strs[i]] = bytes[i]
+			mp1[bytes[i]], mp2[strs[i]] = strs[i], bytes[i]
 		} else if !strings.EqualFold(strs[i], str) || pattern[i] != p {
 			return false
 		}
