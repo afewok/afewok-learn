@@ -10,7 +10,7 @@ import (
  *
  * 思路：遍历加减
  */
-func Test_leetcode_714(t *testing.T) {
+func Test_leetcode_389(t *testing.T) {
 	fmt.Printf("%c\n", findTheDifference("abcd", "abcde"))
 	fmt.Printf("%c\n", findTheDifference("", "y"))
 	fmt.Printf("%c\n", findTheDifference("a", "aa"))
