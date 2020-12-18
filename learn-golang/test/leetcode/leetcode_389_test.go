@@ -61,7 +61,7 @@ func findTheDifference(s string, t string) byte {
 	length := len(s)
 	sum := t[length]
 	for i := 0; i < length; i++ {
-		sum = sum + (t[i] - s[i])
+		sum = t[i] - s[i] + sum
 	}
 	return sum
 }

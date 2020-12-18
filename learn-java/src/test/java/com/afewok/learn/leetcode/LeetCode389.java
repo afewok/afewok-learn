@@ -50,7 +50,7 @@ public class LeetCode389 {
     public char findTheDifference(String s, String t) {
         int length = s.length(), sum = t.charAt(length);
         for (int i = 0; i < length; i++) {
-            sum = sum - s.charAt(i) + t.charAt(i);
+            sum = t.charAt(i)- s.charAt(i) + sum ;
         }
         return (char) sum;
     }
