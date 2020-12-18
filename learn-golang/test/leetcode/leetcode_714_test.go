@@ -1,41 +1,36 @@
 package leetcode
 
-import (
-	"fmt"
-	"testing"
-)
-
 /**
  * 714. 买卖股票的最佳时机含手续费
  *
  * 思路：
- */
-func Test_leetcode_714(t *testing.T) {
-	prices := []int{1, 3, 2, 8, 4, 9}
-	fmt.Println(maxProfit(prices, 2))
-}
+//  */
+// func Test_leetcode_714(t *testing.T) {
+// 	prices := []int{1, 3, 2, 8, 4, 9}
+// 	fmt.Println(maxProfit(prices, 2))
+// }
 
-type Solutions struct {
-	Sum int
-	Buy int
-}
+// type Solutions struct {
+// 	Sum int
+// 	Buy int
+// }
 
-func maxProfit(prices []int, fee int) int {
-	defer timeCost()()
-	length, solutionsList, sum := len(prices), make([]Solutions), 0
-	for i := 0; i < length; i++ {
-		for _, solutions := range solutionsList {
-		}
-	}
+// func maxProfit(prices []int, fee int) int {
+// 	defer timeCost()()
+// 	length, solutionsList, sum := len(prices), make([]Solutions), 0
+// 	for i := 0; i < length; i++ {
+// 		for _, solutions := range solutionsList {
+// 		}
+// 	}
 
-	for _, solutions := range solutionsList {
-		if sum < solutions.Sum {
-			sum = solutions.Sum
-		}
-	}
+// 	for _, solutions := range solutionsList {
+// 		if sum < solutions.Sum {
+// 			sum = solutions.Sum
+// 		}
+// 	}
 
-	return sum
-}
+// 	return sum
+// }
 
 // func getProfit(prices []int, fee, length, sum, buy, sub int) int {
 // 	if sub == length {
