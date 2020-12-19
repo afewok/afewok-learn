@@ -9,6 +9,12 @@ import (
  * dp、dfs、bfs、剪枝、贪心、回溯
  * DFS 深度优先搜索、.BFS 广度优先搜索、DP算法（Dynamic Programming,俗称动态规划）
  */
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 type ListNode struct {
 	Val  int
 	Next *ListNode
