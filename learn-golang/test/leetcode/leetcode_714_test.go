@@ -16,6 +16,17 @@ func Test_leetcode_714(t *testing.T) {
 }
 
 func maxProfit714(prices []int, fee int) int {
-
-	return 7
+	defer timeCost()()
+	n := len(prices)
+	buy := prices[0] + fee
+	profit := 0
+	for i := 1; i < n; i++ {
+		if prices[i]+fee < buy {
+			buy = prices[i] + fee
+		} else if prices[i] > buy {
+			profit += prices[i] - buy
+			buy = prices[i]
+		}
+	}
+	return profit
 }

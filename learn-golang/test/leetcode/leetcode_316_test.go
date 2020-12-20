@@ -15,6 +15,7 @@ func Test_leetcode_316(t *testing.T) {
 }
 
 func removeDuplicateLetters(s string) string {
+	defer timeCost()()
 	left := [26]int{}
 	for _, ch := range s {
 		left[ch-'a']++
