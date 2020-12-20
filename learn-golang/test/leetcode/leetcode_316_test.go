@@ -1,6 +1,7 @@
 package leetcode
 
 import (
+	"bytes"
 	"fmt"
 	"testing"
 )
@@ -16,27 +17,20 @@ func Test_leetcode_316(t *testing.T) {
 
 func removeDuplicateLetters(s string) string {
 	defer timeCost()()
-	left := [26]int{}
-	for _, ch := range s {
-		left[ch-'a']++
-	}
-	stack := []byte{}
-	inStack := [26]bool{}
-	for i := range s {
-		ch := s[i]
-		if !inStack[ch-'a'] {
-			for len(stack) > 0 && ch < stack[len(stack)-1] {
-				last := stack[len(stack)-1] - 'a'
-				if left[last] == 0 {
-					break
-				}
-				stack = stack[:len(stack)-1]
-				inStack[last] = false
-			}
-			stack = append(stack, ch)
-			inStack[ch-'a'] = true
+	b := []byte(s)
+	var r []byte
+	for i, c := range b {
+		if len(r) == 0 {
+			r = append(r, c)
+			continue
 		}
-		left[ch-'a']--
+		if bytes.IndexByte(r, c) != -1 {
+			continue
+		}
+		for len(r) > 0 && c < r[len(r)-1] && bytes.IndexByte(b[i+1:], r[len(r)-1]) != -1 {
+			r = r[:len(r)-1]
+		}
+		r = append(r, c)
 	}
-	return string(stack)
+	return string(r)
 }
