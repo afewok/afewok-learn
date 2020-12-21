@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"fmt"
+	"math"
 	"testing"
 )
 
@@ -20,23 +21,13 @@ func Test_leetcode_746(t *testing.T) {
 }
 
 func minCostClimbingStairs(cost []int) int {
-	defer timeCost()()
-	expenditure, length := 0, len(cost)-1
-	for i := 0; i < length; i++ {
-		if length-i == 1 {
-			if cost[i] < cost[i+1] {
-				return expenditure + cost[i]
-			}
-			return expenditure + cost[i+1]
-		}
-		if cost[i]+cost[i+2] > cost[i+1] {
-			expenditure += cost[i+1]
-			i++
-		} else {
-			expenditure += cost[i]
-		}
+	dp := make([]int, len(cost))
+	dp[0] = cost[0]
+	dp[1] = cost[1]
+	for i := 2; i < len(cost); i++ {
+		dp[i] = int(math.Min(float64(dp[i-1]), float64(dp[i-2]))) + cost[i]
 	}
-	return expenditure
+	return int(math.Min(float64(dp[len(cost)-1]), float64(dp[len(cost)-2])))
 }
 
 func minCostClimbingStairs1(cost []int) int {
