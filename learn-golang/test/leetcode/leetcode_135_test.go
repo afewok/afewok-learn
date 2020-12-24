@@ -21,37 +21,22 @@ func Test_leetcode_135(t *testing.T) {
 
 func candy(ratings []int) int {
 	defer timeCost()()
-	length := len(ratings)
+	length, award := len(ratings), 0
 	arr := make([]int, length)
 
 	for i := 1; i < length; i++ {
-		if ratings[i-1] > ratings[i] {
-			j := i + 1
-			for j < length {
-				if ratings[j-1] <= ratings[j] {
-					break
-				}
-				j++
-			}
-			count := 1
-			for k := j - 2; k >= i; k-- {
-				arr[k] = count
-				count++
-			}
-			if i-1 == 0 || ratings[i-1] == ratings[i-2] {
-				arr[i-1] = count
-			} else if ratings[i-1] > ratings[i-2] && count > arr[i-1] {
-				arr[i-1] = count
-			}
-			i = j - 1
-		} else if ratings[i-1] < ratings[i] {
+		if ratings[i-1] < ratings[i] && arr[i-1] >= arr[i] {
 			arr[i] = arr[i-1] + 1
 		}
 	}
-	for _, v := range arr {
-		length += v
+	award += arr[length-1]
+	for i := length - 2; i >= 0; i-- {
+		if ratings[i+1] < ratings[i] && arr[i+1] >= arr[i] {
+			arr[i] = arr[i+1] + 1
+		}
+		award += arr[i]
 	}
-	return length
+	return length + award
 }
 
 func candy1(ratings []int) int {
