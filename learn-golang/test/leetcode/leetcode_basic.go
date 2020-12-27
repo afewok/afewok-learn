@@ -20,6 +20,13 @@ type ListNode struct {
 	Next *ListNode
 }
 
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
 func showListNode(node *ListNode) {
 	if node == nil {
 		fmt.Println("node 为nil")

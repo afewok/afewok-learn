@@ -78,13 +78,6 @@ func wiggleMaxLength3(nums []int) int {
 	return max(up, down)
 }
 
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
-}
-
 func wiggleMaxLength4(nums []int) int {
 	defer timeCost()()
 	length := len(nums)
