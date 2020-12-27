@@ -9,7 +9,7 @@ import (
  * 283. 移动零
  */
 
-func Test_leetcode_5622(t *testing.T) {
+func Test_leetcode_283(t *testing.T) {
 	array := []int{0, 1, 0, 3, 12}
 	moveZeroes(array)
 	fmt.Println(array)
