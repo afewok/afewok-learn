@@ -15,5 +15,5 @@ func Test_leetcode_219(t *testing.T) {
 
 func containsNearbyDuplicate(nums []int, k int) bool {
 	defer timeCost()()
-
+	return false
 }
