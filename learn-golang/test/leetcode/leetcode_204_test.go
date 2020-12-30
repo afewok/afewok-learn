@@ -2,6 +2,7 @@ package leetcode
 
 import (
 	"fmt"
+	"math"
 	"testing"
 )
 
@@ -88,8 +89,7 @@ func isPrime(num int) bool {
 	if num%6 != 1 && num%6 != 5 {
 		return false
 	}
-	// length := int(math.Sqrt(float64(num)))
-	length := sqrt(num)
+	length := int(math.Sqrt(float64(num)))
 	for i := 5; i <= length; i += 6 {
 		if num%i == 0 || num%(i+2) == 0 {
 			return false
