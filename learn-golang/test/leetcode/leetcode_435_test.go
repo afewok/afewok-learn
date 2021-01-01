@@ -15,22 +15,17 @@ func Test_leetcode_435(t *testing.T) {
 }
 
 func eraseOverlapIntervals(intervals [][]int) int {
-	defer timeCost()()
-	sort.Slice(intervals, func(i, j int) bool {
-		a, b := intervals[i], intervals[j]
-		return a[0] < b[0] || a[0] == b[0] && a[1] < b[1]
-	})
-	miR := int(-1e18)
-	for _, p := range intervals {
-		l, r := p[0], p[1]
-		if l >= miR {
-			miR = r
-		} else {
+	n := len(intervals)
+	if n == 0 {
+		return 0
+	}
+	sort.Slice(intervals, func(i, j int) bool { return intervals[i][1] < intervals[j][1] })
+	ans, right := 1, intervals[0][1]
+	for _, p := range intervals[1:] {
+		if p[0] >= right {
 			ans++
-			if r < miR {
-				miR = r
-			}
+			right = p[1]
 		}
 	}
-	return
+	return n - ans
 }
