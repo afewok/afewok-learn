@@ -19,16 +19,22 @@ func Test_leetcode_239(t *testing.T) {
 
 func maxSlidingWindow(nums []int, k int) []int {
 	defer timeCost()()
-	length, max, list := len(nums)-k, 0, make([]int, 0)
-	for i := 0; i <= length; i++ {
-		max = nums[i]
-		for j := i + k - 1; j > i; j-- {
-			if max < nums[j] {
-				max = nums[j]
-			}
-		}
-		list = append(list, max)
+	if len(nums) == 0 || k == 0 || k == 1 {
+		return nums
 	}
-
-	return list
+	queue := make([]int, 0, k)
+	result := make([]int, len(nums)-k+1)
+	for i, v := range nums {
+		for len(queue) != 0 && v >= nums[queue[len(queue)-1]] {
+			queue = queue[0 : len(queue)-1]
+		}
+		queue = append(queue, i)
+		if i >= k && queue[0] == i-k {
+			queue = queue[1:]
+		}
+		if i >= k-1 {
+			result[i-k+1] = nums[queue[0]]
+		}
+	}
+	return result
 }
