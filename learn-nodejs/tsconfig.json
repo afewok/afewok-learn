@@ -18,6 +18,7 @@
   "include": [
     "mock/**/*",
     "src/**/*",
+    "test/**/*",
     "config/**/*",
     ".umirc.ts",
     "typings.d.ts"
@@ -29,8 +30,6 @@
     "dist",
     "typings",
     "**/__test__",
-    "test",
     "docs",
-    "tests"
   ]
 }
