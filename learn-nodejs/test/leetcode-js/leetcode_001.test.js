@@ -1,4 +1,4 @@
-function twoSum(nums: number[], target: number): number[] {
+var twoSum = function(nums, target) {
     let myMap = new Map();
     for (let i = 0; i < nums.length; i++) {
         const find = target - nums[i];
@@ -10,8 +10,9 @@ function twoSum(nums: number[], target: number): number[] {
     return [];
 };
 
+/**
+ * 1. 两数之和
+ */
 test('leetcode_001', () => {
-    let list: number[] = [2, 7, 11, 15];
-    console.log(twoSum(list, 9))
-    // expect()
+    console.log(twoSum([2, 7, 11, 15], 9))
 });
