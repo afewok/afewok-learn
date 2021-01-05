@@ -1,4 +1,4 @@
 
-test('hello nodejs', () => {
-  console.log("hello nodejs")
+test('hello TypeScript', () => {
+  console.log("hello TypeScript")
 });

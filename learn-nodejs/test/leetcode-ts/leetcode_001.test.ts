@@ -16,4 +16,6 @@ function twoSum(nums: number[], target: number): number[] {
 test('leetcode_001', () => {
     let list: number[] = [2, 7, 11, 15];
     console.log(twoSum(list, 9))
+    console.log(twoSum([3, 2, 4], 6))
+    console.log(twoSum([3, 3], 6))
 });
