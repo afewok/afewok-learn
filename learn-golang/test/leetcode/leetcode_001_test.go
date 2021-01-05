@@ -54,6 +54,7 @@ func twoSum2(nums []int, target int) []int {
 }
 
 func twoSum3(nums []int, target int) []int {
+	defer timeCost()()
 	m := map[int]int{}
 	for i, v := range nums {
 		find := target - v
