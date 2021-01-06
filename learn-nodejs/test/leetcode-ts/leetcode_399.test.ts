@@ -1,5 +1,15 @@
 function calcEquation(equations: string[][], values: number[], queries: string[][]): number[] {
+    let myMap = new Map(),array:number[]=[];
+    for (let i = 0; i < values.length; i++) {
 
+        
+    }
+
+    for (let i = 0; i < values.length; i++) {
+        
+    }
+    
+    return array;
 };
 
 /**
