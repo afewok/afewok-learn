@@ -31,17 +31,17 @@ func wiggleMaxLength1(nums []int) int {
 	down[0] = 1
 	for i := 1; i < length; i++ {
 		if nums[i] > nums[i-1] {
-			up[i] = max(up[i-1], down[i-1]+1)
+			up[i] = maxTwo(up[i-1], down[i-1]+1)
 			down[i] = down[i-1]
 		} else if nums[i] < nums[i-1] {
 			up[i] = up[i-1]
-			down[i] = max(up[i-1]+1, down[i-1])
+			down[i] = maxTwo(up[i-1]+1, down[i-1])
 		} else {
 			up[i] = up[i-1]
 			down[i] = down[i-1]
 		}
 	}
-	return max(up[length-1], down[length-1])
+	return maxTwo(up[length-1], down[length-1])
 }
 
 func wiggleMaxLength2(nums []int) int {
@@ -53,12 +53,12 @@ func wiggleMaxLength2(nums []int) int {
 	up, down := 1, 1
 	for i := 1; i < length; i++ {
 		if nums[i] > nums[i-1] {
-			up = max(up, down+1)
+			up = maxTwo(up, down+1)
 		} else if nums[i] < nums[i-1] {
-			down = max(up+1, down)
+			down = maxTwo(up+1, down)
 		}
 	}
-	return max(up, down)
+	return maxTwo(up, down)
 }
 
 func wiggleMaxLength3(nums []int) int {
@@ -75,7 +75,7 @@ func wiggleMaxLength3(nums []int) int {
 			down = up + 1
 		}
 	}
-	return max(up, down)
+	return maxTwo(up, down)
 }
 
 func wiggleMaxLength4(nums []int) int {
