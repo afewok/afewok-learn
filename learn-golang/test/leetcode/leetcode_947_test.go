@@ -36,23 +36,23 @@ func removeStones(stones [][]int) int {
 	count := len(stones)
 	for _, s := range stones {
 		if !visited[s[0]][s[1]] {
-			dfs(s[0], s[1], xm, ym, visited)
+			dfs947(s[0], s[1], xm, ym, visited)
 			count--
 		}
 	}
 	return count
 }
 
-func dfs(x, y int, xm, ym map[int][]int, visited map[int]map[int]bool) {
+func dfs947(x, y int, xm, ym map[int][]int, visited map[int]map[int]bool) {
 	visited[x][y] = true
 	for i := 0; i < len(xm[x]); i++ {
 		if !visited[x][xm[x][i]] {
-			dfs(x, xm[x][i], xm, ym, visited)
+			dfs947(x, xm[x][i], xm, ym, visited)
 		}
 	}
 	for j := 0; j < len(ym[y]); j++ {
 		if !visited[ym[y][j]][y] {
-			dfs(ym[y][j], y, xm, ym, visited)
+			dfs947(ym[y][j], y, xm, ym, visited)
 		}
 	}
 }
