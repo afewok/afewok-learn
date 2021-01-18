@@ -1,7 +1,6 @@
 package leetcode
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,7 +9,7 @@ import (
  */
 
 func Test_leetcode_617(t *testing.T) {
-	fmt.Println(mergeTrees(&TreeNode{1, &TreeNode{3, &TreeNode{5, nil, nil}, nil}, &TreeNode{2, nil, nil}},
+	showTreeNode(mergeTrees(&TreeNode{1, &TreeNode{3, &TreeNode{5, nil, nil}, nil}, &TreeNode{2, nil, nil}},
 		&TreeNode{2, &TreeNode{1, nil, &TreeNode{4, nil, nil}}, &TreeNode{3, nil, &TreeNode{7, nil, nil}}}))
 }
 
