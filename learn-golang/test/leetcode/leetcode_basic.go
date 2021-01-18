@@ -40,6 +40,34 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
+func showTreeNode(node *TreeNode) {
+	if node == nil {
+		fmt.Println("node 为nil")
+		return
+	}
+	getShowTreeNode(node, "", true)
+}
+
+func getShowTreeNode(node *TreeNode, prefix string, isLeft bool) {
+	if isLeft {
+		if node.Right != nil {
+			getShowTreeNode(node.Right, prefix+"│   ", false)
+		}
+		fmt.Printf("%v%v%d\n", prefix, "└── ", node.Val)
+		if node.Left != nil {
+			getShowTreeNode(node.Left, prefix+"    ", true)
+		}
+	} else {
+		if node.Right != nil {
+			getShowTreeNode(node.Right, prefix+"    ", false)
+		}
+		fmt.Printf("%v%v%d\n", prefix, "┌── ", node.Val)
+		if node.Left != nil {
+			getShowTreeNode(node.Left, prefix+"│   ", true)
+		}
+	}
+}
+
 func maxTwo(a, b int) int {
 	if a >= b {
 		return a
