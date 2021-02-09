@@ -15,6 +15,7 @@ func Test_leetcode_013(t *testing.T) {
 	fmt.Println(romanToInt("IX"))
 	fmt.Println(romanToInt("LVIII"))
 	fmt.Println(romanToInt("MCMXCIV"))
+	fmt.Println(romanToInt("MMMM"))
 }
 
 func romanToInt(s string) int {
