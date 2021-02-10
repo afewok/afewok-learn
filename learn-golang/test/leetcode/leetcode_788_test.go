@@ -2,32 +2,49 @@ package leetcode
 
 import (
 	"fmt"
-	"strings"
 	"testing"
 )
 
 /**
- * 796. 旋转字符串
+ * 788. 旋转数字
  *
  */
 func Test_leetcode_788(t *testing.T) {
-	fmt.Println(rotateString("abcde", "cdeab"))
-	fmt.Println(rotateString("abcde", "abced"))
+	fmt.Println(rotatedDigits(10))
 }
 
-func rotateString(A string, B string) bool {
+func rotatedDigits(N int) int {
 	defer timeCost()()
-	lenA, lenB := len(A), len(B)
-	if lenA != lenB {
-		return false
-	} else if lenA == 0 {
-		return true
-	}
-	for i := 0; i < lenA; i++ {
-		temp := strings.Index(B, A[i:lenA])
-		if temp == 0 && strings.LastIndex(B, A[0:i]) == lenB-i {
-			return true
+	temp1, temp2, isRotated, count, result, mp := 0, 0, true, 0, 0, map[int]int{0: 0, 1: 1, 2: 5, 5: 2, 6: 9, 8: 8, 9: 6}
+	for i := 0; i <= N; i++ {
+		temp1 = i
+		temp2 = 0
+		count = 0
+		isRotated = true
+		for temp1 > 0 {
+			temp := temp1 % 10
+			if v, OK := mp[temp]; OK {
+				for j := 0; j < count; j++ {
+					v *= 10
+				}
+				temp2 += v
+				temp1 /= 10
+				count++
+			} else {
+				isRotated = false
+				break
+			}
+
+		}
+		if isRotated && temp2 != i {
+			result++
 		}
 	}
-	return false
+	return result
 }
+
+//0，1，8
+//2，5，6，9
+//3，4，7
+
+//25
