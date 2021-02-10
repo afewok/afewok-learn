@@ -8,7 +8,7 @@ import (
 /**
  * 917. 仅仅反转字母
  */
-func Test_leetcode_703(t *testing.T) {
+func Test_leetcode_917(t *testing.T) {
 	fmt.Println(reverseOnlyLetters("ab-cd"))
 	fmt.Println(reverseOnlyLetters("a-bC-dEf-ghIj"))
 	fmt.Println(reverseOnlyLetters("Test1ng-Leet=code-Q!"))
