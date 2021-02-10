@@ -59,31 +59,3 @@ func calculate(s string) int {
 
 	return result + f(temp, sign)
 }
-
-// if c == '+' || c == '-' {
-// 	sign=c
-// } else if c >= '0' && c <= '9' {
-
-// } else if c == '(' {
-// 	stack = append(stack, result)
-// 	result = 0
-// } else if c == ')' {
-// }
-
-// switch c {
-// case ' ':
-// case '(':
-
-// case ')':
-// 	length := len(stack) - 1
-// 	result += stack[length]
-// 	stack = stack[0:length]
-// case '+':
-// 	n, _ := strconv.Atoi(temp)
-
-// case '-':
-// 	n, _ := strconv.Atoi(temp)
-
-// default:
-
-// }
