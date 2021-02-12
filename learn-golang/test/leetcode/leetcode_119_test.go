@@ -14,6 +14,7 @@ func Test_leetcode_119(t *testing.T) {
 }
 
 func getRow(rowIndex int) []int {
+	defer timeCost()()
 	if rowIndex == 0 {
 		return []int{1}
 	} else if rowIndex == 1 {
