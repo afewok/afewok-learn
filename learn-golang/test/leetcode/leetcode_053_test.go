@@ -17,17 +17,32 @@ func Test_leetcode_053(t *testing.T) {
 	fmt.Println(maxSubArray([]int{-100000}))
 }
 
-func maxSubArray(nums []int) int {
+func maxSubArray1(nums []int) int {
 	defer timeCost()()
-	max := nums[0]
-	for i := 1; i < len(nums); i++ {
+	max, length := nums[0], len(nums)
+	for i := 1; i < length; i++ {
 		if nums[i]+nums[i-1] > nums[i] {
-			nums[i] += nums[i-1]
+			nums[i] = nums[i] + nums[i-1]
 		}
 		if nums[i] > max {
 			max = nums[i]
 		}
 	}
-	fmt.Println(nums)
+	return max
+}
+
+func maxSubArray(nums []int) int {
+	defer timeCost()()
+	max, sum, length := nums[0], 0, len(nums)
+	for i := 1; i < length; i++ {
+		if sum > 0 {
+			sum += nums[i]
+		} else {
+			sum = nums[i]
+		}
+		if max < sum {
+			max = sum
+		}
+	}
 	return max
 }
