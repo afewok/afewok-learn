@@ -10,10 +10,10 @@ import (
  * 思路：暴力，深度优先遍历（递归+回溯+剪枝）、广度优先遍历（动态规划（杨辉三角第n行））
  */
 func Test_leetcode_022(t *testing.T) {
-	// fmt.Println(generateParenthesis(1))
+	fmt.Println(generateParenthesis(1))
 	fmt.Println(generateParenthesis(2))
-	// fmt.Println(generateParenthesis(3))
-	// fmt.Println(generateParenthesis(8))
+	fmt.Println(generateParenthesis(3))
+	fmt.Println(generateParenthesis(8))
 }
 
 func generateParenthesis1(n int) []string {
