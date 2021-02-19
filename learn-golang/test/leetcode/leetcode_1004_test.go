@@ -10,13 +10,35 @@ import (
  */
 
 func Test_leetcode_1004(t *testing.T) {
+	fmt.Println(longestOnes([]int{0, 0, 0}, 0))
 	fmt.Println(longestOnes([]int{1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0}, 2))
 	fmt.Println(longestOnes([]int{0, 0, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1}, 3))
 }
 
 func longestOnes(A []int, K int) int {
 	defer timeCost()()
-	return 0
+	count, sub, max := 0, 0, 0
+	for i, v := range A {
+		if v == 0 {
+			if K == 0 {
+				sub = i + 1
+			} else if count < K {
+				count++
+			} else {
+				for sub < i {
+					if A[sub] == 0 {
+						sub++
+						break
+					}
+					sub++
+				}
+			}
+		}
+		if max < i-sub+1 {
+			max = i - sub + 1
+		}
+	}
+	return max
 }
 
 func longestOnes1(A []int, K int) int {
