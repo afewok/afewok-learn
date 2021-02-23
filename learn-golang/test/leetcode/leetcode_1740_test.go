@@ -15,9 +15,5 @@ func Test_leetcode_1740(t *testing.T) {
 
 func findDistance(root *TreeNode, p int, q int) int {
 	defer timeCost()()
-
-}
-
-func getFindDistance(root *TreeNode, p, q int, pSub, qSub *bool, depth *int) {
-
+	return 1
 }
