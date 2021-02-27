@@ -1,7 +1,6 @@
 package leetcode
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,10 +9,17 @@ import (
  */
 
 func Test_leetcode_426(t *testing.T) {
-	fmt.Println(treeToDoublyList(&TreeNode{4, &TreeNode{2, &TreeNode{1, nil, nil}, &TreeNode{3, nil, nil}}, &TreeNode{5, nil, nil}}))
+	treeNode := &TreeNode{4, &TreeNode{2, &TreeNode{1, nil, nil}, &TreeNode{3, nil, nil}}, &TreeNode{5, nil, nil}}
+	showTreeNode(treeNode)
+	showLinkedListNode(treeToDoublyList(treeNode))
 }
 
-func treeToDoublyList(root *TreeNode) *Node {
+func treeToDoublyList(root *TreeNode) *TreeNode {
 	defer timeCost()()
 
+	return root
 }
+
+// func tree426(root *TreeNode) (*TreeNode,*TreeNode){
+
+// }

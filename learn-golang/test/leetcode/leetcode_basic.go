@@ -68,6 +68,28 @@ func getShowTreeNode(node *TreeNode, prefix string, isLeft bool) {
 	}
 }
 
+func showLinkedListNode(root *TreeNode) {
+	if root == nil {
+		fmt.Println("node 为nil")
+		return
+	}
+	p := root
+	for {
+		fmt.Printf("%v <=> ", p.Val)
+		p = p.Right
+		if p == nil || p.Left == nil || p.Left.Right == nil {
+			fmt.Println("NULL")
+			break
+		} else if p.Left.Right != p {
+			fmt.Println("No Double Linked List")
+			break
+		} else if p == root {
+			break
+		}
+	}
+	fmt.Println("")
+}
+
 func maxTwo(a, b int) int {
 	if a >= b {
 		return a
