@@ -10,17 +10,29 @@ import (
  */
 
 func Test_leetcode_234(t *testing.T) {
-	fmt.Println(isPowerOfTwo(1))
-	fmt.Println(isPowerOfTwo(16))
-	fmt.Println(isPowerOfTwo(218))
+	fmt.Println(isPalindrome(&ListNode{1, &ListNode{2, nil}}))
+	fmt.Println(isPalindrome(&ListNode{1, &ListNode{2, &ListNode{2, &ListNode{1, nil}}}}))
 }
 
 func isPalindrome(head *ListNode) bool {
-	return isPalindrome234(head, head)
+	if head == nil {
+		return true
+	}
+	temp = head
+	return isPalindrome234(head)
 }
 
-func isPalindrome234(head *ListNode, tail *ListNode) bool {
-	if tail.Next != nil {
+var temp *ListNode
 
+func isPalindrome234(tail *ListNode) bool {
+	if tail.Next != nil {
+		if !isPalindrome234(tail.Next) {
+			return false
+		}
 	}
+	if temp.Val != tail.Val {
+		return false
+	}
+	temp = temp.Next
+	return true
 }
