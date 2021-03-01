@@ -8,7 +8,7 @@ import "testing"
 func Test_leetcode_009(t *testing.T) {
 }
 
-func isPalindrome(x int) bool {
+func isPalindrome009(x int) bool {
 	defer timeCost()()
 	return true
 }
