@@ -16,10 +16,28 @@ func Test_leetcode_426(t *testing.T) {
 
 func treeToDoublyList(root *TreeNode) *TreeNode {
 	defer timeCost()()
+	head := tree426(root)
+	tail := head
+	for tail.Right != nil {
+		tail = tail.Right
+	}
+	head.Left, tail.Right = tail, tail
+	return head
+}
+
+func tree426(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	right := tree426(root.Right)
+	if right != nil {
+		right.Left = root
+	}
+
+	left := tree426(root.Left)
+	if left != nil {
+		left.Left = root
+	}
 
 	return root
 }
-
-// func tree426(root *TreeNode) (*TreeNode,*TreeNode){
-
-// }
