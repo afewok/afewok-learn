@@ -15,6 +15,14 @@ func Test_leetcode_offer_026(t *testing.T) {
 }
 
 func isSubStructure(A *TreeNode, B *TreeNode) bool {
-	defer timeCost()()
-	return true
+	return (A != nil && B != nil) && (recur(A, B) || isSubStructure(A.Left, B) || isSubStructure(A.Right, B))
+}
+
+func recur(A *TreeNode, B *TreeNode) bool {
+	if B == nil {
+		return true
+	} else if A == nil || A.Val != B.Val {
+		return false
+	}
+	return recur(A.Left, B.Left) && recur(A.Right, B.Right)
 }
