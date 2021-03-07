@@ -91,6 +91,11 @@ func showLinkedListNode(root *TreeNode) {
 	fmt.Println("")
 }
 
+type Node struct {
+	Val      int
+	Children []*Node
+}
+
 func maxTwo(a, b int) int {
 	if a >= b {
 		return a

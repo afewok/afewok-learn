@@ -15,12 +15,12 @@ func Test_leetcode_648(t *testing.T) {
 	fmt.Println(replaceWords([]string{"c", "a", "b"}, "aadsfasf absbs bbab cadsfafs"))
 }
 
-type Node struct {
+type Node648 struct {
 	end  int
-	next map[string]*Node
+	next map[string]*Node648
 }
 
-func (root *Node) insert(word string) {
+func (root *Node648) insert(word string) {
 	if word == "" {
 		return
 	}
@@ -30,9 +30,9 @@ func (root *Node) insert(word string) {
 		c := word[i : i+1]
 		if _, ok := node.next[c]; !ok {
 			//不包含
-			node.next[c] = &Node{
+			node.next[c] = &Node648{
 				end:  0,
-				next: map[string]*Node{},
+				next: map[string]*Node648{},
 			}
 		}
 		node = node.next[c]
@@ -40,7 +40,7 @@ func (root *Node) insert(word string) {
 	node.end++
 }
 
-func (root *Node) prefix(s string) string {
+func (root *Node648) prefix(s string) string {
 	//s的最短前缀
 	node := root
 	l := len(s)
@@ -60,7 +60,7 @@ func (root *Node) prefix(s string) string {
 func replaceWords(dictionary []string, sentence string) string {
 	// 把词根放入前缀树，在树上查找每个单词的最短词根
 	length := len(dictionary)
-	root := &Node{next: map[string]*Node{}}
+	root := &Node648{next: map[string]*Node648{}}
 	for i := 0; i < length; i++ {
 		root.insert(dictionary[i])
 	}
