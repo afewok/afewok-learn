@@ -10,7 +10,7 @@ import (
  */
 
 func Test_leetcode_181(t *testing.T) {
-	fmt.Println("not in", "select c.Name  as Customers from Customers c where c.Id not in(select CustomerId  from Orders)")
-	fmt.Println("NOT EXISTS", "select c.Name  as Customers from Customers c where NOT EXISTS(select 1  from Orders o where c.Id =o.CustomerId)")
-	fmt.Println("", "SELECT t1.Name Customers FROM Customers t1 LEFT JOIN Orders t2 ON t1.Id = t2.CustomerId WHERE t2.CustomerId is null")
+	fmt.Println("left join...on", "select e1.Name as Employee from Employee e1 left join Employee e2 on e1.ManagerId = e2.Id where e1.Salary >e2.Salary")
+	fmt.Println("join (可省略)", "select e1.Name as Employee from Employee e1, Employee e2 where e1.ManagerId = e2.Id and e1.Salary >e2.Salary")
+	fmt.Println("", "select e.Name as Employee from employee e where salary > (select salary from employee where Id = e.ManagerId)")
 }
