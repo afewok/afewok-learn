@@ -10,7 +10,7 @@ import (
  */
 
 func Test_leetcode_225(t *testing.T) {
-	obj := Constructor()
+	obj := Constructor225()
 	obj.PushStack(99)
 	fmt.Println(obj.TopStack(), obj.PopStack(), obj.EmptyStack())
 }
@@ -20,7 +20,7 @@ type MyStack struct {
 }
 
 /** Initialize your data structure here. */
-func Constructor() MyStack {
+func Constructor225() MyStack {
 	return MyStack{}
 }
 
