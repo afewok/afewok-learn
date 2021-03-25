@@ -10,11 +10,11 @@ import (
  */
 
 func Test_leetcode_1243(t *testing.T) {
-	// fmt.Println(transformArray([]int{6, 2, 3, 4}))
-	// fmt.Println(transformArray([]int{2, 1, 2, 1, 1, 2, 2, 1}))
-	// fmt.Println(transformArray([]int{1, 6, 3, 4, 3, 5}))
+	fmt.Println(transformArray([]int{6, 2, 3, 4}))
+	fmt.Println(transformArray([]int{2, 1, 2, 1, 1, 2, 2, 1}))
+	fmt.Println(transformArray([]int{1, 6, 3, 4, 3, 5}))
 	fmt.Println(transformArray([]int{6, 5, 8, 6, 7, 7, 3, 9, 8, 8, 3, 1, 2, 9, 8, 3}))
-	// fmt.Println(transformArray([]int{1, 6, 3, 4, 3, 5}))
+	fmt.Println(transformArray([]int{1, 6, 3, 4, 3, 5}))
 }
 
 func transformArray(arr []int) []int {
