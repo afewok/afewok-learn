@@ -5,9 +5,8 @@ import (
 	"math"
 	"strings"
 	"testing"
-
-	"golang.org/x/tour/pic"
-	"golang.org/x/tour/wc"
+	// "golang.org/x/tour/pic"
+	// "golang.org/x/tour/wc"
 )
 
 //指针
@@ -289,42 +288,42 @@ func Test_range_continued(t *testing.T) {
 }
 
 //练习：切片
-func Test_exercise_slices(t *testing.T) {
-	pic.Show(Pic(func(x, y int) int {
-		return (x + y) / 2
-	}))
+// func Test_exercise_slices(t *testing.T) {
+// 	pic.Show(Pic(func(x, y int) int {
+// 		return (x + y) / 2
+// 	}))
 
-	pic.Show(Pic(func(x, y int) int {
-		return x * y
-	}))
+// 	pic.Show(Pic(func(x, y int) int {
+// 		return x * y
+// 	}))
 
-	pic.Show(Pic(func(x, y int) int {
-		return x ^ y
-	}))
+// 	pic.Show(Pic(func(x, y int) int {
+// 		return x ^ y
+// 	}))
 
-	pic.Show(Pic(func(x, y int) int {
-		return int(float64(x) * math.Log(float64(y)))
-	}))
+// 	pic.Show(Pic(func(x, y int) int {
+// 		return int(float64(x) * math.Log(float64(y)))
+// 	}))
 
-	pic.Show(Pic(func(x, y int) int {
-		return x % (y + 1)
-	}))
-}
+// 	pic.Show(Pic(func(x, y int) int {
+// 		return x % (y + 1)
+// 	}))
+// }
 
-func Pic(fn func(x, y int) int) func(dx, dy int) [][]uint8 {
+// func Pic(fn func(x, y int) int) func(dx, dy int) [][]uint8 {
 
-	return func(dx, dy int) [][]uint8 {
-		var pic [][]uint8 = make([][]uint8, dy)
-		for y := 0; y < dy; y++ {
-			pic[y] = make([]uint8, dy)
-			for x := 0; x < dx; x++ {
-				pic[y][x] = uint8(fn(x, y))
-			}
+// 	return func(dx, dy int) [][]uint8 {
+// 		var pic [][]uint8 = make([][]uint8, dy)
+// 		for y := 0; y < dy; y++ {
+// 			pic[y] = make([]uint8, dy)
+// 			for x := 0; x < dx; x++ {
+// 				pic[y][x] = uint8(fn(x, y))
+// 			}
 
-		}
-		return pic
-	}
-}
+// 		}
+// 		return pic
+// 	}
+// }
 
 //映射
 func Test_maps(t *testing.T) {
@@ -390,18 +389,18 @@ func Test_mutating_maps(t *testing.T) {
 }
 
 //练习：映射
-func Test_exercise_maps(t *testing.T) {
-	wc.Test(WordCount)
-}
+// func Test_exercise_maps(t *testing.T) {
+// 	wc.Test(WordCount)
+// }
 
-func WordCount(s string) map[string]int {
-	strs := strings.Fields(s)
-	maps := map[string]int{}
-	for _, v := range strs {
-		maps[v]++
-	}
-	return maps
-}
+// func WordCount(s string) map[string]int {
+// 	strs := strings.Fields(s)
+// 	maps := map[string]int{}
+// 	for _, v := range strs {
+// 		maps[v]++
+// 	}
+// 	return maps
+// }
 
 //函数值
 func Test_function_values(t *testing.T) {

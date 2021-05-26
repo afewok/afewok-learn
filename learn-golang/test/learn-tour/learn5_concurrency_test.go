@@ -5,8 +5,7 @@ import (
 	"sync"
 	"testing"
 	"time"
-
-	"golang.org/x/tour/tree"
+	// "golang.org/x/tour/tree"
 )
 
 //Go 程
@@ -130,44 +129,44 @@ func Test_default_selection(t *testing.T) {
 }
 
 //练习：等价二叉查找树
-func Test_exercise_equivalent_binary_trees(t *testing.T) {
-	ch := make(chan int)
-	t1 := tree.New(1)
-	t2 := tree.New(2)
+// func Test_exercise_equivalent_binary_trees(t *testing.T) {
+// 	ch := make(chan int)
+// 	t1 := tree.New(1)
+// 	t2 := tree.New(2)
 
-	//从信道中打印10个值
-	go Walk(t1, ch)
-	for i := 0; i < 10; i++ {
-		fmt.Println(<-ch)
-	}
+// 	//从信道中打印10个值
+// 	go Walk(t1, ch)
+// 	for i := 0; i < 10; i++ {
+// 		fmt.Println(<-ch)
+// 	}
 
-	//对tree1和tree1进行比较
-	fmt.Println("tree 1 == tree 1:", Same(t1, t2))
-	fmt.Println("tree 1 == tree 2:", Same(t1, t2))
-}
+// 	//对tree1和tree1进行比较
+// 	fmt.Println("tree 1 == tree 1:", Same(t1, t2))
+// 	fmt.Println("tree 1 == tree 2:", Same(t1, t2))
+// }
 
-//Walk 步进 tree t 将所有的值从 tree 发送到 channel ch。
-func Walk(t *tree.Tree, ch chan int) {
-	if t.Left != nil {
-		Walk(t.Left, ch)
-	}
-	ch <- t.Value
-	if t.Right != nil {
-		Walk(t.Right, ch)
-	}
-	return
-}
+// //Walk 步进 tree t 将所有的值从 tree 发送到 channel ch。
+// func Walk(t *tree.Tree, ch chan int) {
+// 	if t.Left != nil {
+// 		Walk(t.Left, ch)
+// 	}
+// 	ch <- t.Value
+// 	if t.Right != nil {
+// 		Walk(t.Right, ch)
+// 	}
+// 	return
+// }
 
-// Same 检测树 t1 和 t2 是否含有相同的值。
-func Same(t1, t2 *tree.Tree) bool {
-	ch1, ch2 := make(chan int), make(chan int)
-	go Walk(t1, ch1)
-	go Walk(t2, ch2)
-	if <-ch1 == <-ch2 {
-		return true
-	}
-	return false
-}
+// // Same 检测树 t1 和 t2 是否含有相同的值。
+// func Same(t1, t2 *tree.Tree) bool {
+// 	ch1, ch2 := make(chan int), make(chan int)
+// 	go Walk(t1, ch1)
+// 	go Walk(t2, ch2)
+// 	if <-ch1 == <-ch2 {
+// 		return true
+// 	}
+// 	return false
+// }
 
 //sync.Mutex
 func Test_mutex_counter(t *testing.T) {

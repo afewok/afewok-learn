@@ -11,9 +11,8 @@ import (
 	"strings"
 	"testing"
 	"time"
-
-	"golang.org/x/tour/pic"
-	"golang.org/x/tour/reader"
+	// "golang.org/x/tour/pic"
+	// "golang.org/x/tour/reader"
 )
 
 //方法
@@ -441,10 +440,10 @@ func Test_reader(t *testing.T) {
 }
 
 //练习：Reader
-func Test_exercise_reader(t *testing.T) {
-	println("实现一个 Reader 类型，它产生一个 ASCII 字符 'A' 的无限流。")
-	reader.Validate(MyReader{})
-}
+// func Test_exercise_reader(t *testing.T) {
+// 	println("实现一个 Reader 类型，它产生一个 ASCII 字符 'A' 的无限流。")
+// 	reader.Validate(MyReader{})
+// }
 
 func (m MyReader) Read(b []byte) (int, error) {
 	for i := 0; i < len(b); i++ {
@@ -493,10 +492,10 @@ func Test_images(t *testing.T) {
 }
 
 //练习：图像
-func Test_exercise_images(t *testing.T) {
-	m := Image{}
-	pic.ShowImage(m)
-}
+// func Test_exercise_images(t *testing.T) {
+// 	m := Image{}
+// 	pic.ShowImage(m)
+// }
 
 type Image struct{} //新建一个Image结构体
 
