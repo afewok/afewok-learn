@@ -10,12 +10,12 @@ import (
  */
 
 func Test_leetcode_1190(t *testing.T) {
-	// fmt.Println(reverseParentheses("(abcd)"))
-	// fmt.Println(reverseParentheses("(u(love)i)"))
-	// fmt.Println(reverseParentheses("(ed(et(oc))el)"))
+	fmt.Println(reverseParentheses("(abcd)"))
+	fmt.Println(reverseParentheses("(u(love)i)"))
+	fmt.Println(reverseParentheses("(ed(et(oc))el)"))
 	fmt.Println(reverseParentheses("a(bcdefghijkl(mno)p)q"))
-	// fmt.Println(reverseParentheses("yfgnxf"))
-	// fmt.Println(reverseParentheses("ta()usw((((a))))"))
+	fmt.Println(reverseParentheses("yfgnxf"))
+	fmt.Println(reverseParentheses("ta()usw((((a))))"))
 }
 
 func reverseParentheses(s string) string {
@@ -37,6 +37,5 @@ func reverseParentheses(s string) string {
 			arrs = append(arrs, v)
 		}
 	}
-
 	return string(arrs)
 }
