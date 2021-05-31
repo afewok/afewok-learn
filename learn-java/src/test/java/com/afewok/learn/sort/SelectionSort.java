@@ -25,7 +25,15 @@ public class SelectionSort extends Sort {
      * 1、基本实现
      */
     public int[] selectionSort1(int[] nums) {
-
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i+1; j <nums.length ; j++) {
+                if(nums[i]>nums[j]){
+                    nums[i]=nums[i]+nums[j];
+                    nums[j]=nums[i]-nums[j];
+                    nums[i]=nums[i]-nums[j];
+                }
+            }
+        }
         return nums;
     }
 
@@ -43,6 +51,15 @@ public class SelectionSort extends Sort {
      * 2、轻微优化
      */
     public int[] selectionSort2(int[] nums) {
+        for (int i = 0; i < nums.length-1; i++) {
+            for (int j = i+1; j <nums.length ; j++) {
+                if(nums[i]>nums[j]){
+                    nums[i]=nums[i]+nums[j];
+                    nums[j]=nums[i]-nums[j];
+                    nums[i]=nums[i]-nums[j];
+                }
+            }
+        }
         return nums;
     }
 }
